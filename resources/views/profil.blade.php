@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h1>Profil Sekolah dan guru</h1>
+<h1>Profil Sekolah dan Tenaga Pengajar</h1>
 
 <p>
     MAN 1 Surakarta merupakan salah satu sekolah yang berada
