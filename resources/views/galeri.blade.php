@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <h1>Galeri Sekolah</h1>
+    <h1>Agenda Sekolah</h1>
 
     <p>
         Ini adalah halaman galeri MAN 1 Surakarta.
