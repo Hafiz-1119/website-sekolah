@@ -7,7 +7,7 @@
     <h1>Agenda Sekolah</h1>
 
     <p>
-        Ini adalah halaman galeri MAN 1 Surakarta.
+        Ini adalah halaman galeri UNIVERSITAS SEBELAS MARET.
     </p>
 
 @endsection
