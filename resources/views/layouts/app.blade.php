@@ -4,104 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>@yield('title', 'Website Sekolah')</title>
+    <title>
+        @yield('title', 'SMP Negeri 2 Penawangan')
+    </title>
 
     <style>
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial, Helvetica, sans-serif;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        html, body{
-            height:100%;
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f5f7fa;
+            color: #1f2937;
+            line-height: 1.6;
         }
 
-        body{
-            background:#f5f5f5;
-            display:flex;
-            flex-direction:column;
+        a {
+            text-decoration: none;
+            color: inherit;
         }
 
-        /* =======================
-            NAVBAR
-        ======================= */
-
-        nav{
-            background:#0d6efd;
-            padding:18px 80px;
-
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-
-            box-shadow:0 2px 10px rgba(0,0,0,.15);
+        img {
+            max-width: 100%;
+            display: block;
         }
 
-        nav .logo a{
-            color:white;
-            text-decoration:none;
-            font-size:32px;
-            font-weight:bold;
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
         }
 
-        nav ul{
-            list-style:none;
-            display:flex;
-            gap:30px;
+        .section {
+            padding: 70px 0;
         }
 
-        nav ul li a{
-            color:white;
-            text-decoration:none;
-            font-size:18px;
-            transition:0.3s ease;
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
         }
 
-        nav ul li a:hover{
-            color:#001f5c;
+        .section-title h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #123c69;
         }
 
-        /* =======================
-            ISI HALAMAN
-        ======================= */
-
-        main{
-            flex:1;
-            width:90%;
-            max-width:1200px;
-            margin:auto;
-            padding:50px 0;
+        .section-title p {
+            color: #6b7280;
         }
 
-        /* =======================
-            FOOTER
-        ======================= */
-
-        footer{
-            background:#0d6efd;
-            color:white;
-            text-align:center;
-            padding:20px;
+        .btn {
+            display: inline-block;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
         }
 
+        .btn-primary {
+            background: #123c69;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0d2e50;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 92%;
+            }
+
+            .section {
+                padding: 50px 0;
+            }
+
+            .section-title h2 {
+                font-size: 26px;
+            }
+        }
     </style>
 
+    @yield('styles')
 </head>
+
 <body>
 
-    {{-- Navbar --}}
     @include('partials.navbar')
 
-    {{-- Isi Halaman --}}
     <main>
         @yield('content')
     </main>
 
-    {{-- Footer --}}
     @include('partials.footer')
+
+    @yield('scripts')
 
 </body>
 </html>
