@@ -1,64 +1,86 @@
-<header class="navbar">
+<nav class="navbar">
 
-    <div class="navbar-container">
+    <div class="container navbar-container">
 
-        <a href="/" class="brand">
-            <div class="brand-logo">
+        {{-- LOGO DAN IDENTITAS SEKOLAH --}}
+        <a href="{{ route('home') }}" class="navbar-brand">
+
+            <div class="school-logo">
                 SMP
             </div>
 
-            <div class="brand-text">
+            <div class="school-name">
                 <strong>SMP NEGERI 2 PENAWANGAN</strong>
                 <span>KABUPATEN GROBOGAN</span>
             </div>
+
         </a>
 
-        <nav class="nav-menu">
 
-            <a href="/" class="active">Beranda</a>
-            <a href="/profil">Profil</a>
-            <a href="/berita">Berita</a>
-            <a href="/galeri">Galeri</a>
-            <a href="/ppdb">PPDB</a>
-            <a href="/kontak">Kontak</a>
-            <a href="/login" class="login-button">Login Admin</a>
+        {{-- MENU --}}
+        <div class="navbar-menu">
 
-        </nav>
+            <a href="{{ route('home') }}">
+                Beranda
+            </a>
+
+            <a href="{{ route('profil') }}">
+                Profil
+            </a>
+
+            <a href="{{ route('berita') }}">
+                Berita
+            </a>
+
+            <a href="{{ route('galeri') }}">
+                Galeri
+            </a>
+
+            <a href="{{ route('kontak') }}">
+                Kontak
+            </a>
+
+            {{-- LOGIN ADMIN --}}
+            <a href="{{ route('admin.login') }}" class="login-admin">
+                Login Admin
+            </a>
+
+        </div>
 
     </div>
 
-</header>
+</nav>
+
 
 <style>
+
     .navbar {
-        background: #ffffff;
-        border-bottom: 1px solid #e5e7eb;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
+        background: white;
+        padding: 12px 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        position: relative;
+        z-index: 10;
     }
 
     .navbar-container {
-        width: 90%;
-        max-width: 1200px;
-        margin: auto;
-        min-height: 78px;
-
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 30px;
     }
 
-    .brand {
+
+    /* ================= BRAND ================= */
+
+    .navbar-brand {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 14px;
     }
 
-    .brand-logo {
-        width: 48px;
-        height: 48px;
+    .school-logo {
+        width: 58px;
+        height: 58px;
+
         border-radius: 50%;
 
         background: #123c69;
@@ -68,63 +90,78 @@
         align-items: center;
         justify-content: center;
 
-        font-size: 14px;
         font-weight: bold;
+        font-size: 16px;
     }
 
-    .brand-text {
+    .school-name {
         display: flex;
         flex-direction: column;
     }
 
-    .brand-text strong {
+    .school-name strong {
         color: #123c69;
-        font-size: 15px;
+        font-size: 18px;
     }
 
-    .brand-text span {
-        color: #6b7280;
-        font-size: 12px;
+    .school-name span {
+        color: #64748b;
+        font-size: 14px;
+        margin-top: 3px;
     }
 
-    .nav-menu {
+
+    /* ================= MENU ================= */
+
+    .navbar-menu {
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: 25px;
     }
 
-    .nav-menu a {
-        color: #374151;
-        font-size: 14px;
-        font-weight: 600;
+    .navbar-menu a {
+        color: #111827;
+        font-weight: bold;
         transition: 0.3s;
     }
 
-    .nav-menu a:hover,
-    .nav-menu a.active {
+    .navbar-menu a:hover {
         color: #123c69;
     }
 
-    .login-button {
+
+    /* ================= LOGIN ADMIN ================= */
+
+    .login-admin {
         background: #123c69;
         color: white !important;
-        padding: 10px 16px;
-        border-radius: 7px;
+
+        padding: 13px 20px;
+        border-radius: 8px;
+
+        transition: 0.3s;
     }
 
-    .login-button:hover {
-        background: #0d2e50;
+    .login-admin:hover {
+        background: #0d2e50 !important;
+        color: white !important;
     }
+
+
+    /* ================= RESPONSIVE ================= */
 
     @media (max-width: 900px) {
+
         .navbar-container {
             flex-direction: column;
-            padding: 18px 0;
+            gap: 20px;
         }
 
-        .nav-menu {
+        .navbar-menu {
             flex-wrap: wrap;
             justify-content: center;
         }
+
     }
+
 </style>
