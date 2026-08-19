@@ -128,13 +128,12 @@
     <div class="galeri-grid">
 
         <div class="galeri-card">
-            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7">
+            <img src="{{ asset('images/galeri/ekstrakurikuler/voly.jpg') }}">
 
             <div class="galeri-info">
-                <h3>Kegiatan Belajar</h3>
+                <h3>Olahraga Voly</h3>
                 <p>
-                    Kegiatan pembelajaran siswa
-                    di lingkungan sekolah.
+                    Aktivitas Olahraga Voly
                 </p>
             </div>
         </div>
@@ -193,13 +192,12 @@
 
 
         <div class="galeri-card">
-            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b">
+            <img src="{{ asset('images/galeri/festival/karnaval.jpg') }}">
 
             <div class="galeri-info">
-                <h3>Prestasi Siswa</h3>
+                <h3>Festival Sekolah</h3>
                 <p>
-                    Berbagai pencapaian dan
-                    prestasi siswa.
+                    Karnaval HUT RI Ke 81
                 </p>
             </div>
         </div>
