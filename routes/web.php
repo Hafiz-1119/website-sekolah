@@ -17,6 +17,10 @@ Route::get('/kontak', [PageController::class, 'kontak'])->name('kontak');
 
 // ================= ADMIN =================
 
+Route::get('/login', function () {
+    return redirect()->route('admin.login');
+})->name('login');
+
 Route::get('/admin/login', [AdminController::class, 'login'])
     ->name('admin.login');
 
