@@ -44,4 +44,29 @@ class AdminController extends Controller
 
         return redirect()->route('admin.login');
     }
+
+        public function berita()
+    {
+        return view('admin.berita');
+    }
+
+    public function galeri()
+    {
+        return view('admin.galeri');
+    }
+
+    public function profil()
+    {
+        return view('admin.profil');
+    }
+
+    public function guru()
+    {
+        return view('admin.guru');
+    }
+
+    public function prestasi()
+    {
+        return view('admin.prestasi');
+    }
 }

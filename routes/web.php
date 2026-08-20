@@ -39,3 +39,28 @@ Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
 
 Route::post('/admin/logout', [AdminController::class, 'logout'])
     ->name('admin.logout');
+
+
+/*
+|--------------------------------------------------------------------------
+| ADMIN Dashbooard
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
+    ->name('admin.dashboard');
+
+Route::get('/admin/berita', [AdminController::class, 'berita'])
+    ->name('admin.berita');
+
+Route::get('/admin/galeri', [AdminController::class, 'galeri'])
+    ->name('admin.galeri');
+
+Route::get('/admin/profil', [AdminController::class, 'profil'])
+    ->name('admin.profil');
+
+Route::get('/admin/guru', [AdminController::class, 'guru'])
+    ->name('admin.guru');
+
+Route::get('/admin/prestasi', [AdminController::class, 'prestasi'])
+    ->name('admin.prestasi');

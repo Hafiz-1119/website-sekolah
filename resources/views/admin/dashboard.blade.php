@@ -34,33 +34,32 @@
                 Dashboard
             </a>
 
-            <a href="#">
+            <a href="{{ route('admin.berita') }}">
                 <span class="menu-icon">▤</span>
                 Kelola Berita
             </a>
 
-            <a href="#">
+            <a href="{{ route('admin.galeri') }}">
                 <span class="menu-icon">▧</span>
                 Kelola Galeri
             </a>
 
-            <a href="#">
+            <a href="{{ route('admin.profil') }}">
                 <span class="menu-icon">▣</span>
                 Kelola Profil
             </a>
 
-            <a href="#">
+            <a href="{{ route('admin.guru') }}">
                 <span class="menu-icon">♙</span>
                 Kelola Guru
             </a>
 
-            <a href="#">
+            <a href="{{ route('admin.prestasi') }}">
                 <span class="menu-icon">★</span>
                 Kelola Prestasi
             </a>
 
         </nav>
-
 
         {{-- ================= LOGOUT ================= --}}
         <div class="sidebar-bottom">
