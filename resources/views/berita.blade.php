@@ -304,6 +304,8 @@
                 alt="Berita utama sekolah"
             >
 
+            
+
             <div class="berita-utama-content">
 
                 <span class="label">
