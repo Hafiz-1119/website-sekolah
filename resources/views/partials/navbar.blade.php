@@ -5,9 +5,11 @@
         {{-- LOGO DAN IDENTITAS SEKOLAH --}}
         <a href="{{ route('home') }}" class="navbar-brand">
 
-            <div class="school-logo">
-                SMP
-            </div>
+            <img 
+            src="{{ asset('images/Logo Smp 2 Penawangan.png') }}" 
+            alt="Logo SMP Negeri 2 Penawangan"
+            class="school-logo"
+            >
 
             <div class="school-name">
                 <strong>SMP NEGERI 2 PENAWANGAN</strong>
@@ -78,20 +80,9 @@
     }
 
     .school-logo {
-        width: 58px;
-        height: 58px;
-
-        border-radius: 50%;
-
-        background: #123c69;
-        color: white;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        font-weight: bold;
-        font-size: 16px;
+    width: 58px;
+    height: 58px;
+    object-fit: contain;
     }
 
     .school-name {

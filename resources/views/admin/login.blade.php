@@ -9,19 +9,21 @@
     <div class="login-card">
 
         {{-- HEADER LOGIN --}}
-        <div class="login-header">
+ <div class="login-header">
 
-            <div class="login-icon">
-                SMP
-            </div>
+    <img 
+        src="{{ asset('images/Logo Smp 2 Penawangan.png') }}" 
+        alt="Logo SMP Negeri 2 Penawangan"
+        class="login-logo"
+    >
 
-            <h1>Login Admin</h1>
+    <h1>Login Admin</h1>
 
-            <p>
-                Silakan masuk untuk mengelola website sekolah.
-            </p>
+    <p>
+        Silakan masuk untuk mengelola website sekolah.
+    </p>
 
-        </div>
+</div>
 
 
         {{-- PESAN ERROR --}}
@@ -143,23 +145,12 @@
     }
 
 
-    .login-icon {
-        width: 65px;
-        height: 65px;
-
+    .login-logo {
+        width: 85px;
+        height: 85px;
+        object-fit: contain;
+        display: block;
         margin: 0 auto 18px;
-
-        border-radius: 50%;
-
-        background: #123c69;
-        color: white;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        font-weight: bold;
-        font-size: 17px;
     }
 
 

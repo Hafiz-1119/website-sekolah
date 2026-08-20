@@ -26,12 +26,22 @@ class AdminController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'Email atau password yang kamu masukkan salah.',
+            'email' => 'Email atau password salah.',
         ])->onlyInput('email');
     }
 
     public function dashboard()
     {
         return view('admin.dashboard');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('admin.login');
     }
 }
