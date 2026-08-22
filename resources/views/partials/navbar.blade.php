@@ -42,11 +42,6 @@
                 Kontak
             </a>
 
-            {{-- LOGIN ADMIN --}}
-            <a href="{{ route('admin.login') }}" class="login-admin">
-                Login Admin
-            </a>
-
         </div>
 
     </div>
@@ -118,24 +113,6 @@
 
     .navbar-menu a:hover {
         color: #123c69;
-    }
-
-
-    /* ================= LOGIN ADMIN ================= */
-
-    .login-admin {
-        background: #123c69;
-        color: white !important;
-
-        padding: 13px 20px;
-        border-radius: 8px;
-
-        transition: 0.3s;
-    }
-
-    .login-admin:hover {
-        background: #0d2e50 !important;
-        color: white !important;
     }
 
 

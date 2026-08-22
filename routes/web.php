@@ -24,71 +24,86 @@ Route::get('/kontak', [PageController::class, 'kontak'])->name('kontak');
 
 /*
 |--------------------------------------------------------------------------
-| ADMIN
+| ADMIN - LOGIN
 |--------------------------------------------------------------------------
 */
 
-// Halaman Login
 Route::get('/admin/login', [AdminController::class, 'login'])
     ->name('admin.login');
 
 Route::post('/admin/login', [AdminController::class, 'authenticate'])
     ->name('admin.authenticate');
 
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
-    ->name('admin.dashboard');
-
-Route::post('/admin/logout', [AdminController::class, 'logout'])
-    ->name('admin.logout');
-
 
 /*
 |--------------------------------------------------------------------------
-| ADMIN Dashbooard
+| ADMIN - HALAMAN YANG WAJIB LOGIN
 |--------------------------------------------------------------------------
 */
 
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
-    ->name('admin.dashboard');
+Route::middleware('auth')->group(function () {
 
-Route::get('/admin/berita', [AdminController::class, 'berita'])
-    ->name('admin.berita');
+    /*
+    |--------------------------------------------------------------------------
+    | DASHBOARD
+    |--------------------------------------------------------------------------
+    */
 
-Route::get('/admin/galeri', [GaleriController::class, 'index'])
-    ->name('admin.galeri');
-
-Route::get('/admin/profil', [AdminController::class, 'profil'])
-    ->name('admin.profil');
-
-Route::get('/admin/guru', [AdminController::class, 'guru'])
-    ->name('admin.guru');
-
-Route::get('/admin/prestasi', [AdminController::class, 'prestasi'])
-    ->name('admin.prestasi');
-
-/*
-|--------------------------------------------------------------------------
-| ADMIN GALERI - CRUD
-|--------------------------------------------------------------------------
-*/
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
+        ->name('admin.dashboard');
 
 
-// TAMBAH GALERI
-Route::get('/admin/galeri/tambah', [GaleriController::class, 'create'])
-    ->name('admin.galeri.create');
+    /*
+    |--------------------------------------------------------------------------
+    | LOGOUT
+    |--------------------------------------------------------------------------
+    */
 
-// SIMPAN GALERI
-Route::post('/admin/galeri', [GaleriController::class, 'store'])
-    ->name('admin.galeri.store');
+    Route::post('/admin/logout', [AdminController::class, 'logout'])
+        ->name('admin.logout');
 
-// FORM EDIT GALERI
-Route::get('/admin/galeri/{id}/edit', [GaleriController::class, 'edit'])
-    ->name('admin.galeri.edit');
 
-// UPDATE GALERI
-Route::put('/admin/galeri/{id}', [GaleriController::class, 'update'])
-    ->name('admin.galeri.update');
+    /*
+    |--------------------------------------------------------------------------
+    | HALAMAN ADMIN
+    |--------------------------------------------------------------------------
+    */
 
-// HAPUS GALERI
-Route::delete('/admin/galeri/{id}', [GaleriController::class, 'destroy'])
-    ->name('admin.galeri.destroy');
+    Route::get('/admin/berita', [AdminController::class, 'berita'])
+        ->name('admin.berita');
+
+    Route::get('/admin/galeri', [GaleriController::class, 'index'])
+        ->name('admin.galeri');
+
+    Route::get('/admin/profil', [AdminController::class, 'profil'])
+        ->name('admin.profil');
+
+    Route::get('/admin/guru', [AdminController::class, 'guru'])
+        ->name('admin.guru');
+
+    Route::get('/admin/prestasi', [AdminController::class, 'prestasi'])
+        ->name('admin.prestasi');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ADMIN GALERI - CRUD
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/admin/galeri/tambah', [GaleriController::class, 'create'])
+        ->name('admin.galeri.create');
+
+    Route::post('/admin/galeri', [GaleriController::class, 'store'])
+        ->name('admin.galeri.store');
+
+    Route::get('/admin/galeri/{id}/edit', [GaleriController::class, 'edit'])
+        ->name('admin.galeri.edit');
+
+    Route::put('/admin/galeri/{id}', [GaleriController::class, 'update'])
+        ->name('admin.galeri.update');
+
+    Route::delete('/admin/galeri/{id}', [GaleriController::class, 'destroy'])
+        ->name('admin.galeri.destroy');
+
+});
