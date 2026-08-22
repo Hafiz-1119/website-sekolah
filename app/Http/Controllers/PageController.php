@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Galeri;
 
 class PageController extends Controller
 {
@@ -30,9 +29,7 @@ class PageController extends Controller
 
     public function galeri()
     {
-    $galeris = Galeri::latest()->get();
-
-    return view('galeri', compact('galeris'));
+        return view('galeri');
     }
 
     public function kontak()
