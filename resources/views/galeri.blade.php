@@ -156,213 +156,55 @@
 
     <!-- TOMBOL FILTER -->
     <div class="filter-galeri">
-
         <button class="filter-btn active" data-filter="semua">
             Semua
         </button>
 
-        <button class="filter-btn" data-filter="sekolah">
+        <button class="filter-btn" data-filter="Kegiatan Sekolah">
             Kegiatan Sekolah
         </button>
 
-        <button class="filter-btn" data-filter="ekstrakurikuler">
+        <button class="filter-btn" data-filter="Ekstrakurikuler">
             Ekstrakurikuler
         </button>
 
-        <button class="filter-btn" data-filter="festival">
+        <button class="filter-btn" data-filter="Festival & Event">
             Festival & Event
         </button>
-
     </div>
 
 
     <!-- GALERI -->
     <div class="galeri-grid">
 
+        @forelse($galeris as $galeri)
 
-        <!-- =========================
-             KEGIATAN SEKOLAH
-        ========================== -->
+            <div class="galeri-card"
+                data-kategori="{{ $galeri->kategori }}">
 
-        <div class="galeri-card sekolah">
-            <img src="{{ asset('images/galeri/kegiatan sekolah/kerja bakti.jpg') }}">
+                <img
+                    src="{{ asset('storage/' . $galeri->foto) }}"
+                    alt="{{ $galeri->judul }}">
 
-            <div class="galeri-info">
-                <h3>Kerja Bakti</h3>
-                <p>
-                    Kegiatan gotong royong siswa membersihkan dan
-                    merawat taman di lingkungan sekolah.
-                </p>
+                <div class="galeri-info">
+
+                    <h3>{{ $galeri->judul }}</h3>
+
+                    <p>{{ $galeri->deskripsi }}</p>
+
+                </div>
+
             </div>
-        </div>
 
+        @empty
 
-        <div class="galeri-card sekolah">
-            <img src="{{ asset('images/galeri/kegiatan sekolah/senam.jpg') }}">
+            <p style="text-align:center; grid-column: 1 / -1;">
+                Belum ada dokumentasi galeri.
+            </p>
 
-            <div class="galeri-info">
-                <h3>Senam Pagi</h3>
-                <p>
-                    Kegiatan senam bersama seluruh siswa di lapangan sekolah
-                    untuk menjaga kebugaran jasmani.
-                </p>
-            </div>
-        </div>
-
-
-        <div class="galeri-card sekolah">
-            <img src="{{ asset('images/galeri/kegiatan sekolah/penyuluhan kesehatan.jpg') }}">
-
-            <div class="galeri-info">
-                <h3>Penyuluhan Kesehatan</h3>
-                <p>
-                    Kegiatan edukasi kesehatan bagi siswa yang disampaikan
-                    oleh petugas atau tenaga kesehatan.
-                </p>
-            </div>
-        </div>
-
-
-        <div class="galeri-card sekolah">
-            <img src="{{ asset('images/galeri/kegiatan sekolah/upacara.jpg') }}">
-
-            <div class="galeri-info">
-                <h3>Upacara Pagi</h3>
-                <p>
-                    Pelaksanaan upacara bendera rutin yang
-                    diikuti oleh seluruh siswa dan guru.
-                </p>
-            </div>
-        </div>
-
-
-        <div class="galeri-card sekolah">
-            <img src="{{ asset('images/galeri/kegiatan sekolah/perjusa.jpg') }}">
-
-            <div class="galeri-info">
-                <h3>Perkemahan Jumat dan Sabtu</h3>
-                <p>
-                    Kegiatan perkemahan pramuka yang diikuti siswa
-                    dengan mendirikan tenda dan apel di lapangan sekolah.
-                </p>
-            </div>
-        </div>
-
-
-        <div class="galeri-card sekolah">
-            <img src="{{ asset('images/galeri/kegiatan sekolah/isra miraj.jpg') }}">
-
-            <div class="galeri-info">
-                <h3>Peringatan Isra Mi'raj Nabi Muhammad SAW</h3>
-                <p>
-                    Kegiatan keagamaan dalam rangka memperingati Isra Mi'raj,
-                    diisi dengan tausiyah bersama guru dan siswa.
-                </p>
-            </div>
-        </div>
-
-
-        <div class="galeri-card sekolah">
-            <img src="{{ asset('images/galeri/kegiatan sekolah/rohani.jpg') }}">
-
-            <div class="galeri-info">
-                <h3>Rohani</h3>
-                <p>
-                    Kegiatan keagamaan berupa renungan atau kultum
-                    yang dilaksanakan setiap hari Jumat.
-                </p>
-            </div>
-        </div>
-
-
-
-        <!-- =========================
-             EKSTRAKURIKULER
-        ========================== -->
-
-        <div class="galeri-card ekstrakurikuler">
-            <img src="{{ asset('images/galeri/ekstrakurikuler/pramuka.jpg') }}">
-
-            <div class="galeri-info">
-                <h3>Kegiatan Pramuka</h3>
-                <p>
-                    Latihan rutin dan kegiatan kepramukaan siswa.
-                </p>
-            </div>
-        </div>
-
-
-        <div class="galeri-card ekstrakurikuler">
-            <img src="{{ asset('images/galeri/ekstrakurikuler/voly.jpg') }}">
-
-            <div class="galeri-info">
-                <h3>Olahraga Voli</h3>
-                <p>
-                    Aktivitas latihan bola voli bersama pelatih
-                    di halaman sekolah.
-                </p>
-            </div>
-        </div>
-
-
-        <div class="galeri-card ekstrakurikuler">
-            <img src="{{ asset('images/galeri/ekstrakurikuler/drumband.jpg') }}">
-
-            <div class="galeri-info">
-                <h3>Drumband</h3>
-                <p>
-                    Latihan dan penampilan drumband siswa
-                    dalam formasi baris-berbaris di lapangan sekolah.
-                </p>
-            </div>
-        </div>
-
-
-        <div class="galeri-card ekstrakurikuler">
-            <img src="{{ asset('images/galeri/ekstrakurikuler/pmr.jpg') }}">
-
-            <div class="galeri-info">
-                <h3>PMR</h3>
-                <p>
-                    Kegiatan pelatihan dan pembinaan siswa
-                    dalam bidang kepalangmerahan dan pertolongan pertama.
-                </p>
-            </div>
-        </div>
-
-
-
-        <!-- =========================
-             FESTIVAL & EVENT
-        ========================== -->
-
-        <div class="galeri-card festival">
-            <img src="{{ asset('images/galeri/festival/jalan sehat.jpg') }}">
-
-            <div class="galeri-info">
-                <h3>Jalan Sehat</h3>
-                <p>
-                    Kegiatan jalan sehat dalam rangka memperingati
-                    hari kemerdekaan tingkat Kecamatan Penawangan.
-                </p>
-            </div>
-        </div>
-
-
-        <div class="galeri-card festival">
-            <img src="{{ asset('images/galeri/festival/karnaval.jpg') }}">
-
-            <div class="galeri-info">
-                <h3>Karnaval Kemerdekaan Indonesia</h3>
-                <p>
-                    Karnaval HUT RI ke-81.
-                </p>
-            </div>
-        </div>
+        @endforelse
 
     </div>
-
-</div>
 
 
 <script>
@@ -470,5 +312,72 @@
     });
 
 </script>
+
+<script>
+
+function filterGaleri(kategori) {
+
+    const cards = document.querySelectorAll('.galeri-card');
+
+    cards.forEach(card => {
+
+        if (
+            kategori === 'Semua' ||
+            card.dataset.kategori === kategori
+        ) {
+
+            card.style.display = 'block';
+
+        } else {
+
+            card.style.display = 'none';
+
+        }
+
+    });
+
+}
+
+</script>
+
+
+<script>
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const galeriCards = document.querySelectorAll('.galeri-card');
+
+    filterButtons.forEach(button => {
+
+        button.addEventListener('click', function() {
+
+            const kategori = this.getAttribute('data-filter');
+
+            // Mengubah tombol aktif
+            filterButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            this.classList.add('active');
+
+            // Filter galeri
+            galeriCards.forEach(card => {
+
+                const kategoriCard = card.getAttribute('data-kategori');
+
+                if (
+                    kategori === 'semua' ||
+                    kategoriCard === kategori
+                ) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+
+            });
+
+        });
+
+    });
+</script>
+
 
 @endsection
