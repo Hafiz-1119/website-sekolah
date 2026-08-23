@@ -4,6 +4,12 @@
 
 @section('content')
 
+@if(session('success'))
+    <div style="background-color: #d1fae5; color: #065f46; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #10b981;">
+        <strong>Berhasil!</strong> {{ session('success') }}
+    </div>
+@endif
+
 <div class="admin-layout">
 
     {{-- ================= SIDEBAR ================= --}}

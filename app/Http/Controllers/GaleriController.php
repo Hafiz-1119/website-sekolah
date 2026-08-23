@@ -13,6 +13,7 @@ class GaleriController extends Controller
     // =========================
 
     public function index()
+    
     {
         $galeris = Galeri::latest()->get();
 

@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Galeri;
+use App\Models\Profil;
 
 class PageController extends Controller
 {
@@ -11,7 +13,10 @@ class PageController extends Controller
 
     public function profil()
     {
-        return view('profil');
+
+        $profil = Profil::first(); 
+
+        return view('profil', compact('profil'));
     }
 
     public function berita()
@@ -27,13 +32,16 @@ class PageController extends Controller
     ]);
     }
 
-    public function galeri()
+public function galeri()
     {
-        return view('galeri');
+        $galeris = Galeri::latest()->get();
+
+        return view('galeri', compact('galeris'));
     }
 
     public function kontak()
     {
         return view('kontak');
     }
+    
 }

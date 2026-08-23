@@ -27,64 +27,58 @@
         <div class="vision-mission-wrapper">
             <div class="vision-box">
                 <h2>Visi Sekolah</h2>
-                <p>“BERKEIMANAN DAN KETAKWAAN KEPADA TUHAN YANG MAHA ESA, UNGGUL DALAM PRESTASI, DAN PEDULI LINGKUNGAN.”</p>
+                {{ $profil->visi }}
             </div>
             <div class="mission-box">
                 <h2>Misi Sekolah</h2>
                 <ol class="mission-list">
-                    <li>
-                        <span class="mission-number">01.</span>
-                        <span>Mewujudkan peningkatan murid yang beriman dan bertaqwa kepada Tuhan Yang Maha Esa, serta berakhlak mulia.</span>
-                    </li>
-                    <li>
-                        <span class="mission-number">02.</span>
-                        <span>Mewujudkan peningkatan prestasi dalam bidang akademik dan non akademik.</span>
-                    </li>
-                    <li>
-                        <span class="mission-number">03.</span>
-                        <span>Mewujudkan peningkatan karakter murid yang mandiri dan bernalar kritis.</span>
-                    </li>
-                    <li>
-                        <span class="mission-number">04.</span>
-                        <span>Mewujudkan peningkatan kreativitas murid dalam pembelajaran intrakurikuler, kokurikuler dimensi profil lulusan, dan ekstrakurikuler.</span>
-                    </li>
-                    <li>
-                        <span class="mission-number">05.</span>
-                        <span>Mewujudkan peningkatan dalam bidang kepedulian lingkungan, budaya hidup sehat dan budaya 7K.</span>
-                    </li>
+                    @if($profil && $profil->misi)
+                        {{-- Memecah teks berdasarkan baris baru (Enter) dari inputan admin --}}
+                        @foreach(explode("\n", $profil->misi) as $index => $item)
+                            @if(trim($item) != '')
+                                <li>
+                                    {{-- Membuat nomor otomatis 01, 02, dst --}}
+                                    <span class="mission-number">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}.</span>
+                                    <span>{{ trim($item) }}</span>
+                                </li>
+                            @endif
+                        @endforeach
+                    @else
+                        <li><span>Belum ada misi.</span></li>
+                    @endif
                 </ol>
             </div>
         </div>
     </section>
 
     {{-- ================= SEJARAH ================= --}}
-    <section class="history-section"> 
-    
+    @php
+        // Cek apakah ada foto di database. Kalau tidak ada, pakai default.
+        $bgFoto = ($profil && $profil->foto_sekolah) 
+            ? asset('storage/' . $profil->foto_sekolah) 
+            : asset('images/slider/ft 1.jpg');
+    @endphp
+
+    {{-- Tambahkan inline style di sini, CSS aslinya biarkan saja --}}
+    <section class="history-section" style="background-image: url('{{ $bgFoto }}') !important;">
         <div class="history-content">        
-    
             <div class="section-title">
-            <span class="section-label">
-                SEJARAH SINGKAT
-            </span>
-
-            <h2>
-                Sejarah SMP Negeri 2 Penawangan
-            </h2>
-
-            <p>
-               SMP Negeri 2 Penawangan berdiri pada tahun 1990, 
-               dengan kegiatan belajar mengajar menumpang di SDN di Desa Sedadi.
-               Barulah mulai tahun 1991 sekolah memiliki gedung yang ditempati sampai sekarang. 
-               Sekolah ini terletak di lokasi yang cukup strategis yaitu di pinggir jalan raya Sedadi-Penawangan, 
-               tepatnya di Desa Sedadi, Kecamatan Penawangan, Kabupaten Grobogan, Jawa Tengah.
-            </p>
-            <p>
-                Saat ini SMP Negeri 2 Penawangan memiliki gedung sekolah yang mampu menampung 672 siswa,
-                terbagi dalam 7 kelas VII, 7 Kelas VIII dan 7 Kelas IX. Dari gedung inilah 
-                para siswa digembleng, dibina, dididik dan dibentuk agar menjadi manusia- manusia yang berguna bagi nusa dan bangsa.
-            </p>
+                <span class="section-label">
+                    SEJARAH SINGKAT
+                </span>
+    
+            @if($profil && $profil->sejarah)
+                {{-- Memecah teks berdasarkan Enter, lalu looping jadi paragraf terpisah --}}
+                @foreach(explode("\n", $profil->sejarah) as $paragraph)
+                    @if(trim($paragraph) != '')
+                        <p>{{ trim($paragraph) }}</p>
+                    @endif
+                @endforeach
+            @else
+                <p>Belum ada sejarah sekolah.</p>
+            @endif
             </div>
-
+            
         </div>
     </section>
 
