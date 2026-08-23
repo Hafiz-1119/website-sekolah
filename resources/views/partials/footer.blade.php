@@ -13,8 +13,8 @@
             </p>
 
             <p>
-                Jl. Raya Penawangan No. 45, Kecamatan Penawangan,
-                Kabupaten Grobogan, Jawa Tengah, Indonesia.
+                Jl. Raya Sedadi-Penawangan No. 49, Kecamatan Penawangan,
+                Kabupaten Grobogan, Jawa Tengah, Indonesia, 58161.
             </p>
 
         </div>
@@ -41,11 +41,11 @@
             </h4>
 
             <p>
-                (0292) 427189
+                (0292) 7700885
             </p>
 
             <p>
-                info@smpn2penawangan.sch.id
+                smpduapenawangan@gmail.com
             </p>
 
         </div>

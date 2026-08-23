@@ -57,6 +57,13 @@ body {
     margin: 0;
 }
 
+.section-title p2 {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text);
+        margin: 0;
+        white-space: nowrap;
+}
 /* 4. GAYA CARD */
 .base-card {
     background: white;

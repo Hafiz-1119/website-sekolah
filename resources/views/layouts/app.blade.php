@@ -20,6 +20,11 @@
             background-color: #f5f7fa;
             color: #1f2937;
             line-height: 1.6;
+    
+        }
+
+        main {
+        padding-top: 95px; /* Menggeser SEMUA halaman ke bawah secara otomatis sekaligus! */
         }
 
         a {
