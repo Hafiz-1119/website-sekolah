@@ -23,10 +23,6 @@
                 Membangun Generasi Berilmu, Berakhlak, dan Berprestasi
             </p>
 
-            <a href="/ppdb" class="hero-button">
-                Lihat Info PPDB
-            </a>
-
         </div>
 
     </div>
@@ -349,18 +345,6 @@
         font-size: 20px;
         margin-bottom: 30px;
         color: #e5edf7;
-    }
-
-    .hero-button {
-        display: inline-block;
-
-        background: white;
-        color: #123c69;
-
-        padding: 13px 24px;
-        border-radius: 8px;
-
-        font-weight: bold;
     }
 
 
