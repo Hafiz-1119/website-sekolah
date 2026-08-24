@@ -183,8 +183,7 @@
                 data-kategori="{{ $galeri->kategori }}">
 
                 <img
-                    src="{{ asset('storage/' . $galeri->foto) }}"
-                    alt="{{ $galeri->judul }}">
+                   <img src="{{ asset($galeri->foto) }}" alt="{{ $galeri->judul }}">
 
                 <div class="galeri-info">
 
