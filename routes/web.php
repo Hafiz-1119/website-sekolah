@@ -21,18 +21,14 @@ Route::get('/profil', [PageController::class, 'profil'])
 Route::get('/berita', [PageController::class, 'berita'])
     ->name('berita');
 
+
 /*
 |--------------------------------------------------------------------------
 | DETAIL BERITA
 |--------------------------------------------------------------------------
-|
-| Untuk sementara masih diarahkan ke method berita().
-| Nanti ketika fitur berita detail dibuat, bagian ini
-| bisa kita ubah ke method detailBerita().
-|
 */
 
-Route::get('/berita/{id}', [PageController::class, 'berita'])
+Route::get('/berita/1', [PageController::class, 'detailBerita'])
     ->name('berita.detail');
 
 
@@ -64,31 +60,11 @@ Route::post('/admin/login', [AdminController::class, 'authenticate'])
 
 Route::middleware('auth')->group(function () {
 
-    /*
-    |--------------------------------------------------------------------------
-    | DASHBOARD
-    |--------------------------------------------------------------------------
-    */
-
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
         ->name('admin.dashboard');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | LOGOUT
-    |--------------------------------------------------------------------------
-    */
-
     Route::post('/admin/logout', [AdminController::class, 'logout'])
         ->name('admin.logout');
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | HALAMAN ADMIN
-    |--------------------------------------------------------------------------
-    */
 
     Route::get('/admin/berita', [AdminController::class, 'berita'])
         ->name('admin.berita');
