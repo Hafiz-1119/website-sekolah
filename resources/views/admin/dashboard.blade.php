@@ -55,7 +55,7 @@
                 Kelola Profil
             </a>
 
-            <a href="{{ route('admin.guru') }}">
+            <a href="{{ route('admin.guru.index') }}">
                 <span class="menu-icon">♙</span>
                 Kelola Guru
             </a>

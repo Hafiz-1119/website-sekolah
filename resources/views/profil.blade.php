@@ -172,80 +172,98 @@
     </section>
 
     {{-- ================= GURU & TENAGA KEPENDIDIKAN ================= --}}
-    @php
-        $staff = [
-            ['nama' => 'Agung Ruswanto, S.Pd.', 'mapel' => 'Bahasa Indonesia', 'jabatan' => 'Guru', 'foto' => 'agung.Jpeg'],
-            ['nama' => 'Agus Prayetno, S.Pd.', 'mapel' => 'Pendidikan Pancasila', 'jabatan' => 'Guru', 'foto' => 'agus.jpeg'],
-            ['nama' => 'Drs. Bambang Nudiman', 'mapel' => 'Bahasa Indonesia', 'jabatan' => 'Guru', 'foto' => 'bambang.jpeg'],
-            ['nama' => 'Bregas Nanda Priyawardana, ST.', 'mapel' => 'Informatika', 'jabatan' => 'Guru', 'foto' => 'bregas.jpeg'],
-            ['nama' => 'Devi Prasetyaningrum, S.Pd.', 'mapel' => 'Matematika', 'jabatan' => 'Guru', 'foto' => 'devi.jpeg'],
-            ['nama' => 'Djoko Supriyanto, S.Pd.', 'mapel' => 'Bahasa Inggris', 'jabatan' => 'Guru', 'foto' => 'djoko.jpeg'],
-            ['nama' => 'Eko Budiyono, S.Pd.', 'mapel' => 'Olahraga', 'jabatan' => 'Guru', 'foto' => 'eko.jpeg'],
-            ['nama' => 'Endah Wahyuningsih, S.Pd.', 'mapel' => 'Ilmu Pengetahuan Alam', 'jabatan' => 'Guru', 'foto' => 'endahW.jpeg'],
-            ['nama' => 'Endah Widyaningsih, S.Pd.', 'mapel' => 'Bahasa Inggris', 'jabatan' => 'Guru', 'foto' => 'endah.jpeg'],
-            ['nama' => 'Endang Sri Mukti, S.Pd.', 'mapel' => 'Matematika', 'jabatan' => 'Guru', 'foto' => 'endang.jpeg'],
-            ['nama' => 'Fathonah, S.Ag.', 'mapel' => 'Pendidikan Agama Islam', 'jabatan' => 'Guru', 'foto' => 'fathonah.jpeg'],
-            ['nama' => 'Fits Dewi Parwati, S.Pd.', 'mapel' => 'Bahasa Indonesia', 'jabatan' => 'Guru', 'foto' => 'fits.jpeg'],
-            ['nama' => 'Galuh Ajeng, S.Pd.', 'mapel' => 'Seni Musik', 'jabatan' => 'Guru', 'foto' => 'galuh.jpeg'],
-            ['nama' => 'Heri Soertikanti, S.Pd.', 'mapel' => 'Ilmu Pengetahuan Alam', 'jabatan' => 'Guru', 'foto' => 'heri.jpeg'],
-            ['nama' => 'Jadi Susanto, S.Pd.', 'mapel' => 'Ilmu Pengetahuan Sosial', 'jabatan' => 'Guru', 'foto' => 'jadi.jpeg'],
-            ['nama' => 'Mala Nur Anisa, S.Pd.', 'mapel' => 'Bahasa Indonesia', 'jabatan' => 'Guru', 'foto' => 'mala.jpeg'],
-            ['nama' => 'Mohamad Suharto, S.Pd.', 'mapel' => 'Olahraga', 'jabatan' => 'Guru', 'foto' => 'mohamad.jpeg'],
-            ['nama' => 'Mustaqhfirin, M.Pd.', 'mapel' => 'Pendidikan Agama Islam', 'jabatan' => 'Guru', 'foto' => 'mustaqfirin.jpeg'],
-            ['nama' => 'Parsuni, S.Pd.', 'mapel' => 'Bahasa Indonesia', 'jabatan' => 'Guru', 'foto' => 'parsuni.jpeg'],
-            ['nama' => 'Retno Aris Sugiarti, S.Pd.', 'mapel' => 'Ilmu Pengetahuan Alam', 'jabatan' => 'Guru', 'foto' => 'retno.jpeg'],
-            ['nama' => 'Riris Pratiwi, S.Pd.', 'mapel' => 'Ilmu Pengetahuan Sosial', 'jabatan' => 'Guru', 'foto' => 'riris.jpeg'],
-            ['nama' => 'Sri Ambarwati, S.Pd.', 'mapel' => 'Bahasa Indonesia', 'jabatan' => 'Guru', 'foto' => 'sri.jpeg'],
-            ['nama' => 'Sudar, S.Pd.', 'mapel' => 'Ilmu Pengetahuan Sosial', 'jabatan' => 'Guru', 'foto' => 'sudar.jpeg'],
-            ['nama' => 'Suwarningsih, S.Pd.', 'mapel' => 'Pendidikan Pancasila', 'jabatan' => 'Guru', 'foto' => 'suearningsih.jpeg'],
-            ['nama' => 'Suhartini, S.Pd.', 'mapel' => 'Bahasa Inggris', 'jabatan' => 'Guru', 'foto' => 'suhartini.jpeg'],
-            ['nama' => 'Sunawan, S.Pd.', 'mapel' => 'Bahasa Jawa', 'jabatan' => 'Guru', 'foto' => 'sunawan.jpeg'],
-            ['nama' => 'Suryowati, S.Pd.', 'mapel' => 'Ilmu Pengetahuan Sosial', 'jabatan' => 'Guru', 'foto' => 'suryowati.jpeg'],
-            ['nama' => 'Woro Hapsari, S.Pd.', 'mapel' => 'Matematika', 'jabatan' => 'Guru', 'foto' => 'woro.jpeg'],
-            ['nama' => 'Ika Rismawati.', 'mapel' => 'Perpustakaan', 'jabatan' => 'Staff', 'foto' => 'ika.jpeg'],
-            ['nama' => 'Mayangsari Putri W.', 'mapel' => 'Tata Usaha', 'jabatan' => 'Staff', 'foto' => 'mayangsari.jpeg'],
-            ['nama' => 'Priska Sihalina.', 'mapel' => 'Tata Usaha', 'jabatan' => 'Staff', 'foto' => 'priska.jpeg'],
-            ['nama' => 'Siti Umi Styaningsih.', 'mapel' => 'Tata Usaha', 'jabatan' => 'Staff', 'foto' => 'siti.jpeg'],
-            ['nama' => 'Sukarno.', 'mapel' => 'Tata Usaha', 'jabatan' => 'Staff', 'foto' => 'sukarno.jpeg'],
-            ['nama' => 'Pak Kus.', 'mapel' => 'Penjaga', 'jabatan' => 'Staff', 'foto' => 'pakkus.jpeg'],
-            ['nama' => 'Jaman.', 'mapel' => 'Kebon', 'jabatan' => 'Staff', 'foto' => 'jaman.jpeg'],
-            ['nama' => 'Supriyanto.', 'mapel' => 'Kebon', 'jabatan' => 'Staff', 'foto' => 'supriyanto.jpeg'],
-            ['nama' => 'Suwito.', 'mapel' => 'Satpam', 'jabatan' => 'Staff', 'foto' => 'suwito.jpeg'],
-        ];
-    @endphp
 
     <section class="staff-section">
+
         <div class="staff-container">
+
             <div class="section-title text-center">
                 <span class="section-label">TENAGA PENDIDIK</span>
+
                 <h2>Guru & Tenaga Kependidikan</h2>
-                <p>Tenaga pendidik dan tenaga kependidikan SMP Negeri 2 Penawangan.</p>
+
+                <p>
+                    Tenaga pendidik dan tenaga kependidikan SMP Negeri 2 Penawangan.
+                </p>
             </div>
+
 
             <div class="staff-grid">
-                @foreach ($staff as $person)
+
+                @forelse ($guruStaff as $item)
+
                     <div class="staff-card">
+
+                        {{-- FOTO --}}
                         <div class="staff-photo">
-                            @if (!empty($person['foto']))
-                                <img src="{{ asset('images/tendik/' . $person['foto']) }}" alt="{{ $person['nama'] }}">
+
+                            @if ($item->foto)
+
+                                <img
+                                    src="{{ asset('storage/' . $item->foto) }}"
+                                    alt="{{ $item->nama }}"
+                                >
+
                             @else
-                                <span>Foto Guru</span>
+
+                                <span>Foto Belum Tersedia</span>
+
                             @endif
+
                         </div>
+
+
+                        {{-- INFORMASI --}}
                         <div class="staff-info">
-                            <h4>{{ $person['nama'] }}</h4>
-                            <p>{{ $person['jabatan'] }}</p>
-                            <span class="staff-position">{{ $person['mapel'] }}</span>
+
+                            <h4>
+                                {{ $item->nama }}
+                            </h4>
+
+
+                            @if ($item->kategori === 'guru')
+
+                                <p>
+                                    Guru
+                                </p>
+
+                                @if ($item->mapel)
+                                    <span class="staff-position">
+                                        {{ $item->mapel }}
+                                    </span>
+                                @endif
+
+                            @else
+
+                                <p>
+                                    Staff
+                                </p>
+
+                                @if ($item->jabatan)
+                                    <span class="staff-position">
+                                        {{ $item->jabatan }}
+                                    </span>
+                                @endif
+
+                            @endif
+
                         </div>
+
                     </div>
-                @endforeach
+
+                @empty
+
+                    <div class="staff-empty">
+                        Belum ada data guru atau tenaga kependidikan.
+                    </div>
+
+                @endforelse
+
             </div>
+
         </div>
+
     </section>
-
-</div>
-
-@endsection
 
 @section('styles')
 <style>

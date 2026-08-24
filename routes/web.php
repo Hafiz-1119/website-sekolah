@@ -5,6 +5,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\Admin\GuruController;
 
 
 /*
@@ -64,7 +65,6 @@ Route::post('/admin/login', [AdminController::class, 'authenticate'])
 */
 
 Route::middleware('auth')->group(function () {
-
     /*
     |--------------------------------------------------------------------------
     | DASHBOARD
@@ -129,5 +129,11 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/admin/galeri/{id}', [GaleriController::class, 'destroy'])
         ->name('admin.galeri.destroy');
+
+    Route::prefix('admin')->name('admin.')->group(function () {
+
+    Route::resource('guru', GuruController::class)
+        ->except(['show']);
+    });
 
 });

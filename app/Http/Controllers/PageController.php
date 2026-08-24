@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Galeri;
 use App\Models\Profil;
+use App\Models\Guru;
 
 class PageController extends Controller
 {
@@ -14,9 +15,12 @@ class PageController extends Controller
     public function profil()
     {
 
-        $profil = Profil::first(); 
+        $profil = Profil::first();
+        $guruStaff = Guru::orderBy('kategori')
+            ->orderBy('nama')
+            ->get();
 
-        return view('profil', compact('profil'));
+        return view('profil', compact('profil','guruStaff'));
     }
 
     public function berita()
