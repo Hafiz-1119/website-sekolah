@@ -144,7 +144,7 @@
     <!-- HEADER -->
     <div class="galeri-header">
 
-        <h1>Galeri Dokumentasi</h1>
+        <h1>Galeri</h1>
 
         <p>
             Potret berbagai kegiatan sekolah,

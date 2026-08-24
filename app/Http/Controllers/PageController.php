@@ -17,7 +17,7 @@ class PageController extends Controller
 
     public function berita()
     {
-    $judul = "Berita Terbaru MAN 1 Surakarta";
+    $judul = "Berita Terbaru SMP NEGERI 2 PENAWANGAN";
     $tanggal = "9 Agustus 2026";
     $penulis = "Admin Sekolah";
 
