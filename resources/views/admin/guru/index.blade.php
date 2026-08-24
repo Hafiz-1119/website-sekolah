@@ -13,19 +13,23 @@
 
         <div class="guru-header-title">
             <h2>Kelola Guru & Staff</h2>
-
-            <p>
-                Kelola data guru dan staff sekolah.
-            </p>
+            <p>Kelola data guru dan staff sekolah.</p>
         </div>
 
-        <a href="{{ route('admin.guru.create') }}"
-           class="btn-tambah-guru">
+        <div class="guru-header-actions">
 
-            <span>+</span>
-            Tambah Data
+            <a href="{{ route('admin.dashboard') }}"
+            class="btn btn-outline-secondary">
+                ← Dashboard
+            </a>
 
-        </a>
+            <a href="{{ route('admin.guru.create') }}"
+            class="btn-tambah-guru">
+
+                <span>+</span>
+                Tambah Data
+            </a>
+        </div>
 
     </div>
 
@@ -286,6 +290,23 @@
         color: #6B7A90;
         font-size: 14px;
         margin: 0;
+    }
+
+    /* CONTAINER TOMBOL (DASHBOARD & TAMBAH) */
+    .guru-header-actions {
+        display: flex;
+        align-items: center;
+        gap: 15px; /* Jarak antara tombol dashboard dan tambah data */
+    }
+
+    /* Sedikit penyesuaian buat tombol dashboard biar rapi */
+    .btn-dashboard {
+        display: inline-flex;
+        align-items: center;
+        padding: 11px 20px;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 9px;
     }
 
     /* BUTTON TAMBAH */
@@ -568,9 +589,17 @@
         .guru-header {
             flex-direction: column;
             align-items: flex-start;
+            gap: 15px;
         }
 
-        .btn-tambah-guru {
+        .guru-header-actions {
+            width: 100%;
+            display: flex;
+            flex-direction: column-reverse; /* Tambah data di atas, Dashboard di bawah */
+            gap: 10px;
+        }
+
+        .btn-tambah-guru, .btn-dashboard {
             width: 100%;
             justify-content: center;
         }
