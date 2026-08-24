@@ -1,1 +1,5 @@
 *.sqlite*
+!/storage/
+!/storage/app/
+!/storage/app/public/
+!/storage/app/public/galeri/
