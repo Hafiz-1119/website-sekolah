@@ -425,10 +425,9 @@
                         <td>
 
                             <img
-                                src="{{ asset('storage/' . $galeri->foto) }}"
-                                alt="{{ $galeri->judul }}"
-                                class="foto-galeri">
-
+                            src="{{ Str::startsWith($galeri->foto, 'images/') ? asset($galeri->foto) : asset('storage/' . $galeri->foto) }}"
+                            alt="{{ $galeri->judul }}"
+                            class="foto-galeri">
                         </td>
 
 
