@@ -1,572 +1,649 @@
 @extends('layouts.app')
 
-@section('title', 'Berita Sekolah')
-
 @section('content')
 
 <style>
+    /* =========================================
+       RESET KHUSUS HALAMAN BERITA
+    ========================================= */
+
     .berita-page {
-        background: #f7f9fc;
-        padding: 60px 0 80px;
+        min-height: 100vh;
+        padding: 60px 7% 80px;
+
+        background:
+            linear-gradient(
+                rgba(242, 247, 253, 0.95),
+                rgba(242, 247, 253, 0.95)
+            ),
+            url("{{ asset('images/bg-berita.jpg') }}");
+
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+
+        font-family: Arial, Helvetica, sans-serif;
+        box-sizing: border-box;
     }
 
-    .berita-container {
-        width: 90%;
-        max-width: 1200px;
-        margin: auto;
+
+    .berita-page *,
+    .berita-page *::before,
+    .berita-page *::after {
+        box-sizing: border-box;
     }
 
-    /* HEADER */
+
+    /* =========================================
+       HEADER
+    ========================================= */
+
     .berita-header {
         text-align: center;
-        margin-bottom: 35px;
+        margin-bottom: 50px;
     }
+
 
     .berita-header h1 {
-        font-size: 38px;
+        margin: 0 0 12px;
+
+        font-size: 34px;
         font-weight: 700;
-        color: #123b70;
-        margin-bottom: 10px;
+
+        color: #123f73;
     }
+
 
     .berita-header p {
-        color: #777;
-        font-size: 16px;
-    }
-
-    /* CATEGORY */
-    .kategori {
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        flex-wrap: wrap;
-        margin-bottom: 40px;
-    }
-
-    .kategori a {
-        text-decoration: none;
-        color: #123b70;
-        background: white;
-        border: 1px solid #dce4ef;
-        padding: 10px 20px;
-        border-radius: 25px;
-        font-size: 14px;
-        transition: 0.3s;
-    }
-
-    .kategori a:hover,
-    .kategori a.active {
-        background: #123b70;
-        color: white;
-    }
-
-    /* BERITA UTAMA */
-    .berita-utama {
-        display: grid;
-        grid-template-columns: 1.2fr 1fr;
-        background: white;
-        border-radius: 18px;
-        overflow: hidden;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-        margin-bottom: 60px;
-    }
-
-    .berita-utama img {
-        width: 100%;
-        height: 100%;
-        min-height: 380px;
-        object-fit: cover;
-    }
-
-    .berita-utama-content {
-        padding: 40px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .label {
-        display: inline-block;
-        width: fit-content;
-        background: #eaf2ff;
-        color: #1755a5;
-        padding: 7px 14px;
-        border-radius: 20px;
-        font-size: 13px;
-        font-weight: 600;
-        margin-bottom: 15px;
-    }
-
-    .berita-utama h2 {
-        font-size: 30px;
-        line-height: 1.3;
-        color: #1c2d41;
-        margin-bottom: 15px;
-    }
-
-    .tanggal {
-        color: #888;
-        font-size: 14px;
-        margin-bottom: 18px;
-    }
-
-    .berita-utama p {
-        color: #666;
-        line-height: 1.7;
-        margin-bottom: 25px;
-    }
-
-    .btn-baca {
-        display: inline-block;
-        width: fit-content;
-        background: #123b70;
-        color: white;
-        padding: 12px 22px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-size: 14px;
-        transition: 0.3s;
-    }
-
-    .btn-baca:hover {
-        background: #0d2c54;
-        transform: translateY(-2px);
-    }
-
-    /* SECTION TITLE */
-    .section-title {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 25px;
-    }
-
-    .section-title h2 {
-        color: #1c2d41;
-        font-size: 26px;
         margin: 0;
-    }
 
-    .section-title a {
-        color: #123b70;
-        text-decoration: none;
         font-size: 14px;
-        font-weight: 600;
+        line-height: 1.7;
+
+        color: #777;
     }
 
-    /* CARD BERITA */
+
+    /* =========================================
+       JUDUL BERITA TERBARU
+    ========================================= */
+
+    .berita-title {
+        margin-bottom: 22px;
+    }
+
+
+    .berita-title h2 {
+        margin: 0;
+
+        font-size: 23px;
+        font-weight: 700;
+
+        color: #123f73;
+    }
+
+
+    /* =========================================
+       GRID BERITA
+    ========================================= */
+
     .berita-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 25px;
+
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+
+        gap: 24px;
     }
 
+
+    /* =========================================
+       CARD
+    ========================================= */
+
     .berita-card {
-        background: white;
-        border-radius: 15px;
+        display: flex;
+
+        flex-direction: column;
+
+        background: #ffffff;
+
+        border-radius: 14px;
+
         overflow: hidden;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.06);
-        transition: 0.3s;
+
+        text-decoration: none;
+
+        color: inherit;
+
+        box-shadow:
+            0 5px 20px rgba(0, 0, 0, 0.08);
+
+        transition:
+            transform 0.25s ease,
+            box-shadow 0.25s ease;
     }
+
 
     .berita-card:hover {
         transform: translateY(-6px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+
+        box-shadow:
+            0 12px 30px rgba(0, 0, 0, 0.14);
     }
 
-    .berita-card img {
+
+    /* =========================================
+       GAMBAR
+    ========================================= */
+
+    .berita-image {
         width: 100%;
-        height: 210px;
+
+        height: 190px;
+
         object-fit: cover;
+
+        display: block;
+
+        background: #e9eef4;
     }
 
-    .berita-card-content {
-        padding: 22px;
+
+    /* =========================================
+       CONTENT
+    ========================================= */
+
+    .berita-content {
+        padding: 19px;
+
+        flex: 1;
     }
 
-    .berita-card-content .label {
-        margin-bottom: 10px;
-        font-size: 12px;
-    }
 
-    .berita-card h3 {
-        color: #1c2d41;
-        font-size: 19px;
-        line-height: 1.4;
-        margin-bottom: 10px;
-    }
+    /* =========================================
+       KATEGORI
+    ========================================= */
 
-    .berita-card .tanggal {
-        margin-bottom: 12px;
-    }
+    .berita-kategori {
+        display: inline-block;
 
-    .berita-card p {
-        color: #777;
-        font-size: 14px;
-        line-height: 1.6;
-        margin-bottom: 15px;
-    }
+        padding: 6px 10px;
 
-    .read-more {
-        color: #123b70;
-        text-decoration: none;
-        font-size: 14px;
+        margin-bottom: 11px;
+
+        background: #edf5ff;
+
+        color: #15539a;
+
+        border-radius: 20px;
+
+        font-size: 10px;
+
         font-weight: 600;
     }
 
-    /* RESPONSIVE */
+
+    /* =========================================
+       JUDUL
+    ========================================= */
+
+    .berita-content h3 {
+        margin: 0 0 10px;
+
+        color: #123f73;
+
+        font-size: 16px;
+
+        line-height: 1.45;
+    }
+
+
+    /* =========================================
+       TANGGAL
+    ========================================= */
+
+    .berita-date {
+        margin-bottom: 11px;
+
+        color: #888;
+
+        font-size: 11px;
+    }
+
+
+    /* =========================================
+       RINGKASAN
+    ========================================= */
+
+    .berita-content p {
+        margin: 0 0 16px;
+
+        color: #777;
+
+        font-size: 12px;
+
+        line-height: 1.7;
+    }
+
+
+    /* =========================================
+       BACA SELENGKAPNYA
+    ========================================= */
+
+    .baca-berita {
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 5px;
+
+        color: #15539a;
+
+        font-size: 12px;
+
+        font-weight: 600;
+    }
+
+
+    .baca-berita .arrow {
+        transition: transform 0.2s ease;
+    }
+
+
+    .berita-card:hover
+    .baca-berita .arrow {
+        transform: translateX(5px);
+    }
+
+
+    /* =========================================
+       JIKA BERITA KOSONG
+    ========================================= */
+
+    .berita-kosong {
+        grid-column: 1 / -1;
+
+        padding: 50px 20px;
+
+        text-align: center;
+
+        background: white;
+
+        border-radius: 14px;
+
+        color: #777;
+
+        box-shadow:
+            0 5px 20px rgba(0, 0, 0, 0.06);
+    }
+
+
+    /* =========================================
+       TABLET
+    ========================================= */
+
     @media (max-width: 900px) {
 
-        .berita-utama {
-            grid-template-columns: 1fr;
+        .berita-page {
+            padding:
+                50px 5% 60px;
         }
 
-        .berita-utama img {
-            min-height: 280px;
-        }
 
         .berita-grid {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
         }
     }
+
+
+    /* =========================================
+       HP
+    ========================================= */
 
     @media (max-width: 600px) {
 
         .berita-page {
-            padding: 40px 0 60px;
+            padding:
+                40px 20px 50px;
         }
+
+
+        .berita-header {
+            margin-bottom: 35px;
+        }
+
 
         .berita-header h1 {
-            font-size: 30px;
+            font-size: 28px;
         }
 
-        .berita-utama-content {
-            padding: 25px;
+
+        .berita-header p {
+            font-size: 13px;
         }
 
-        .berita-utama h2 {
-            font-size: 24px;
+
+        .berita-title h2 {
+            font-size: 20px;
         }
+
 
         .berita-grid {
             grid-template-columns: 1fr;
+
+            gap: 20px;
+        }
+
+
+        .berita-image {
+            height: 210px;
         }
     }
+
 </style>
 
 
 <div class="berita-page">
 
-    <div class="berita-container">
 
-        {{-- HEADER --}}
-        <div class="berita-header">
-            <h1>Berita Sekolah</h1>
+    {{-- =========================================
+         HEADER
+    ========================================== --}}
 
-            <p>
-                Informasi terbaru, kegiatan, prestasi,
-                dan kabar terkini seputar sekolah
-            </p>
-        </div>
+    <div class="berita-header">
 
+        <h1>
+            Berita Sekolah
+        </h1>
 
-        {{-- KATEGORI --}}
-        <div class="kategori">
+        <p>
+            Informasi terbaru, kegiatan, prestasi,
+            dan kabar terkini seputar sekolah
+        </p>
 
-            <a href="#" class="active">
-                Semua
-            </a>
-
-            <a href="#">
-                Akademik
-            </a>
-
-            <a href="#">
-                Kegiatan
-            </a>
-
-            <a href="#">
-                Prestasi
-            </a>
-
-            <a href="#">
-                Pengumuman
-            </a>
-
-        </div>
+    </div>
 
 
-        {{-- BERITA UTAMA --}}
-        <div class="berita-utama">
+    {{-- =========================================
+         BERITA TERBARU
+    ========================================== --}}
+
+    <div class="berita-title">
+
+        <h2>
+            Berita Terbaru
+        </h2>
+
+    </div>
+
+
+    {{-- =========================================
+         DAFTAR BERITA
+    ========================================== --}}
+
+    <div class="berita-grid">
+
+
+        {{-- =========================================
+             BERITA 1
+        ========================================== --}}
+
+        <a href="{{ route('berita.detail') }}" class="berita-card">
 
             <img
-                src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80"
-                alt="Berita utama sekolah"
+                src="{{ asset('images/berita/berita1.jpeg') }}"
+                alt="Siswa SMP Negeri 2 Penawangan Raih Juara Olimpiade Matematika"
+                class="berita-image"
             >
 
-            
+            <div class="berita-content">
 
-            <div class="berita-utama-content">
-
-                <span class="label">
-                    Kegiatan Sekolah
+                <span class="berita-category">
+                    Prestasi
                 </span>
 
-                <h2>
-                    Semarak HUT Kemerdekaan RI ke-81 di SMP Negeri 1
-                </h2>
+                <h3>
+                    Siswa SMP Negeri 2 Penawangan Raih Juara Olimpiade Matematika
+                </h3>
 
-                <div class="tanggal">
-                    📅 18 Agustus 2026
+                <div class="berita-date">
+                    📅 17 Agustus 2026
                 </div>
 
                 <p>
-                    Dalam rangka memperingati Hari Kemerdekaan Republik
-                    Indonesia, SMP Negeri 1 mengadakan berbagai kegiatan
-                    yang diikuti oleh seluruh siswa dan warga sekolah.
+                    Prestasi membanggakan kembali diraih oleh siswa SMP Negeri 2 Penawangan dalam ajang olimpiade matematika.
                 </p>
 
-                <a href="#" class="btn-baca">
+                <span class="berita-link">
                     Baca Selengkapnya →
-                </a>
+                </span>
 
             </div>
 
-        </div>
+        </a>
 
 
-        {{-- BERITA TERBARU --}}
-        <div class="section-title">
+        {{-- =========================================
+             BERITA 2
+        ========================================== --}}
 
-            <h2>
-                Berita Terbaru
-            </h2>
+        <a
+            href="{{ route('berita.detail', 2) }}"
+            class="berita-card"
+        >
 
-            <a href="#">
-                Lihat Semua →
-            </a>
+            <img
+                src="{{ asset('images/berita/berita2.jpeg') }}"
+                alt="Kegiatan Sekolah"
+                class="berita-image"
+            >
 
-        </div>
+            <div class="berita-content">
 
+                <span class="berita-kategori">
+                    Kegiatan
+                </span>
 
-        <div class="berita-grid">
+                <h3>
+                    Kegiatan Masa Pengenalan Lingkungan Sekolah
+                </h3>
 
-            {{-- CARD 1 --}}
-            <div class="berita-card">
+                <div class="berita-date">
+                    📅 15 Agustus 2026
+                </div>
 
-                <img
-                    src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80"
-                    alt="Prestasi siswa"
-                >
+                <p>
+                    Kegiatan Masa Pengenalan Lingkungan Sekolah
+                    berlangsung dengan meriah dan diikuti oleh seluruh
+                    peserta didik baru.
+                </p>
 
-                <div class="berita-card-content">
-
-                    <span class="label">
-                        Prestasi
-                    </span>
-
-                    <h3>
-                        Siswa SMP Negeri 1 Raih Juara Olimpiade Matematika
-                    </h3>
-
-                    <div class="tanggal">
-                        📅 17 Agustus 2026
-                    </div>
-
-                    <p>
-                        Prestasi membanggakan kembali diraih oleh siswa
-                        SMP Negeri 1 dalam ajang olimpiade matematika.
-                    </p>
-
-                    <a href="#" class="read-more">
-                        Baca Selengkapnya →
-                    </a>
-
+                <div class="baca-berita">
+                    Baca Selengkapnya
+                    <span class="arrow">→</span>
                 </div>
 
             </div>
 
+        </a>
 
-            {{-- CARD 2 --}}
-            <div class="berita-card">
 
-                <img
-                    src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80"
-                    alt="Kegiatan sekolah"
-                >
+        {{-- =========================================
+             BERITA 3
+        ========================================== --}}
 
-                <div class="berita-card-content">
+        <a
+            href="{{ route('berita.detail', 3) }}"
+            class="berita-card"
+        >
 
-                    <span class="label">
-                        Kegiatan
-                    </span>
+            <img
+                src="{{ asset('images/berita/berita3.jpeg') }}"
+                alt="Asesmen Nasional"
+                class="berita-image"
+            >
 
-                    <h3>
-                        Kegiatan Masa Pengenalan Lingkungan Sekolah
-                    </h3>
+            <div class="berita-content">
 
-                    <div class="tanggal">
-                        📅 15 Agustus 2026
-                    </div>
+                <span class="berita-kategori">
+                    Akademik
+                </span>
 
-                    <p>
-                        Kegiatan MPLS berlangsung dengan meriah dan
-                        diikuti oleh seluruh peserta didik baru.
-                    </p>
+                <h3>
+                    Persiapan Asesmen Nasional Tahun Pelajaran 2026
+                </h3>
 
-                    <a href="#" class="read-more">
-                        Baca Selengkapnya →
-                    </a>
+                <div class="berita-date">
+                    📅 12 Agustus 2026
+                </div>
 
+                <p>
+                    Sekolah mulai mempersiapkan siswa untuk
+                    menghadapi pelaksanaan Asesmen Nasional.
+                </p>
+
+                <div class="baca-berita">
+                    Baca Selengkapnya
+                    <span class="arrow">→</span>
                 </div>
 
             </div>
 
+        </a>
 
-            {{-- CARD 3 --}}
-            <div class="berita-card">
 
-                <img
-                    src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80"
-                    alt="Kegiatan akademik"
-                >
+        {{-- =========================================
+             BERITA 4
+        ========================================== --}}
 
-                <div class="berita-card-content">
+        <a
+            href="{{ route('berita.detail', 4) }}"
+            class="berita-card"
+        >
 
-                    <span class="label">
-                        Akademik
-                    </span>
+            <img
+                src="{{ asset('images/berita/berita4.jpeg') }}"
+                alt="Pemilihan OSIS"
+                class="berita-image"
+            >
 
-                    <h3>
-                        Persiapan Asesmen Nasional Tahun Pelajaran 2026
-                    </h3>
+            <div class="berita-content">
 
-                    <div class="tanggal">
-                        📅 12 Agustus 2026
-                    </div>
+                <span class="berita-kategori">
+                    Kesiswaan
+                </span>
 
-                    <p>
-                        Sekolah mulai mempersiapkan siswa untuk menghadapi
-                        pelaksanaan Asesmen Nasional.
-                    </p>
+                <h3>
+                    Pemilihan Pengurus OSIS Periode 2026/2027
+                </h3>
 
-                    <a href="#" class="read-more">
-                        Baca Selengkapnya →
-                    </a>
+                <div class="berita-date">
+                    📅 10 Agustus 2026
+                </div>
 
+                <p>
+                    Pemilihan pengurus OSIS dilaksanakan secara
+                    demokratis dengan melibatkan seluruh siswa.
+                </p>
+
+                <div class="baca-berita">
+                    Baca Selengkapnya
+                    <span class="arrow">→</span>
                 </div>
 
             </div>
 
+        </a>
 
-            {{-- CARD 4 --}}
-            <div class="berita-card">
 
-                <img
-                    src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=800&q=80"
-                    alt="Kegiatan siswa"
-                >
+        {{-- =========================================
+             BERITA 5
+        ========================================== --}}
 
-                <div class="berita-card-content">
+        <a
+            href="{{ route('berita.detail', 5) }}"
+            class="berita-card"
+        >
 
-                    <span class="label">
-                        Kesiswaan
-                    </span>
+            <img
+                src="{{ asset('images/berita/berita5.jpg') }}"
+                alt="Kegiatan Sekolah"
+                class="berita-image"
+            >
 
-                    <h3>
-                        Pemilihan Pengurus OSIS Periode 2026/2027
-                    </h3>
+            <div class="berita-content">
 
-                    <div class="tanggal">
-                        📅 10 Agustus 2026
-                    </div>
+                <span class="berita-kategori">
+                    Pengumuman
+                </span>
 
-                    <p>
-                        Pemilihan pengurus OSIS dilaksanakan secara
-                        demokratis dengan melibatkan seluruh siswa.
-                    </p>
+                <h3>
+                    Informasi Jadwal Kegiatan Sekolah Bulan Agustus
+                </h3>
 
-                    <a href="#" class="read-more">
-                        Baca Selengkapnya →
-                    </a>
+                <div class="berita-date">
+                    📅 8 Agustus 2026
+                </div>
 
+                <p>
+                    Berikut informasi mengenai jadwal kegiatan sekolah
+                    yang akan dilaksanakan selama bulan Agustus.
+                </p>
+
+                <div class="baca-berita">
+                    Baca Selengkapnya
+                    <span class="arrow">→</span>
                 </div>
 
             </div>
 
+        </a>
 
-            {{-- CARD 5 --}}
-            <div class="berita-card">
 
-                <img
-                    src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80"
-                    alt="Pengumuman sekolah"
-                >
+        {{-- =========================================
+             BERITA 6
+        ========================================== --}}
 
-                <div class="berita-card-content">
+        <a
+            href="{{ route('berita.detail', 6) }}"
+            class="berita-card"
+        >
 
-                    <span class="label">
-                        Pengumuman
-                    </span>
+            <img
+                src="{{ asset('images/berita/berita6.jpg') }}"
+                alt="Program Literasi"
+                class="berita-image"
+            >
 
-                    <h3>
-                        Informasi Jadwal Kegiatan Sekolah Bulan Agustus
-                    </h3>
+            <div class="berita-content">
 
-                    <div class="tanggal">
-                        📅 8 Agustus 2026
-                    </div>
+                <span class="berita-kategori">
+                    Akademik
+                </span>
 
-                    <p>
-                        Berikut informasi mengenai jadwal kegiatan sekolah
-                        yang akan dilaksanakan selama bulan Agustus.
-                    </p>
+                <h3>
+                    Program Peningkatan Literasi Siswa di Sekolah
+                </h3>
 
-                    <a href="#" class="read-more">
-                        Baca Selengkapnya →
-                    </a>
+                <div class="berita-date">
+                    📅 5 Agustus 2026
+                </div>
 
+                <p>
+                    Sekolah terus meningkatkan budaya literasi
+                    melalui berbagai program membaca bagi siswa.
+                </p>
+
+                <div class="baca-berita">
+                    Baca Selengkapnya
+                    <span class="arrow">→</span>
                 </div>
 
             </div>
 
+        </a>
 
-            {{-- CARD 6 --}}
-            <div class="berita-card">
-
-                <img
-                    src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80"
-                    alt="Belajar siswa"
-                >
-
-                <div class="berita-card-content">
-
-                    <span class="label">
-                        Akademik
-                    </span>
-
-                    <h3>
-                        Program Peningkatan Literasi Siswa di Sekolah
-                    </h3>
-
-                    <div class="tanggal">
-                        📅 5 Agustus 2026
-                    </div>
-
-                    <p>
-                        Sekolah terus meningkatkan budaya literasi melalui
-                        berbagai program membaca bagi siswa.
-                    </p>
-
-                    <a href="#" class="read-more">
-                        Baca Selengkapnya →
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
 
     </div>
 

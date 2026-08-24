@@ -5,21 +5,38 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GaleriController;
 
+
 /*
 |--------------------------------------------------------------------------
 | HALAMAN PUBLIK
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('/', [PageController::class, 'home'])
+    ->name('home');
 
-Route::get('/profil', [PageController::class, 'profil'])->name('profil');
+Route::get('/profil', [PageController::class, 'profil'])
+    ->name('profil');
 
-Route::get('/berita', [PageController::class, 'berita'])->name('berita');
+Route::get('/berita', [PageController::class, 'berita'])
+    ->name('berita');
 
-Route::get('/galeri', [PageController::class, 'galeri'])->name('galeri');
 
-Route::get('/kontak', [PageController::class, 'kontak'])->name('kontak');
+/*
+|--------------------------------------------------------------------------
+| DETAIL BERITA
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/berita/1', [PageController::class, 'detailBerita'])
+    ->name('berita.detail');
+
+
+Route::get('/galeri', [PageController::class, 'galeri'])
+    ->name('galeri');
+
+Route::get('/kontak', [PageController::class, 'kontak'])
+    ->name('kontak');
 
 
 /*
@@ -43,31 +60,11 @@ Route::post('/admin/login', [AdminController::class, 'authenticate'])
 
 Route::middleware('auth')->group(function () {
 
-    /*
-    |--------------------------------------------------------------------------
-    | DASHBOARD
-    |--------------------------------------------------------------------------
-    */
-
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
         ->name('admin.dashboard');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | LOGOUT
-    |--------------------------------------------------------------------------
-    */
-
     Route::post('/admin/logout', [AdminController::class, 'logout'])
         ->name('admin.logout');
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | HALAMAN ADMIN
-    |--------------------------------------------------------------------------
-    */
 
     Route::get('/admin/berita', [AdminController::class, 'berita'])
         ->name('admin.berita');
