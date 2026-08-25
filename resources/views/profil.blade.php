@@ -269,7 +269,7 @@
 <style>
     .profil-page {
         min-height: 100vh;
-        padding: 40px 0 80px;
+        padding: 130px 0 80px;
         background: #eef4f9;
         background-size: cover;
         background-position: center;
