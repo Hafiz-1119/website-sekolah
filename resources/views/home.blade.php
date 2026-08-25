@@ -174,61 +174,30 @@
         </div>
 
 
-        <div class="achievement-grid">
+<div class="achievement-grid">
 
-            <div class="achievement-card">
+@foreach($prestasis as $prestasi)
 
-                <div class="achievement-icon">
-                    A
-                </div>
+    <div class="achievement-card">
 
-                <h3>
-                    Akreditasi A Unggul
-                </h3>
+        @if($prestasi->foto)
+            <img src="{{ asset('storage/' . $prestasi->foto) }}"
+                 alt="{{ $prestasi->judul }}">
+        @endif
 
-                <p>
-                    Diakreditasi secara resmi dengan hasil yang sangat memuaskan.
-                </p>
+        <h3>
+            {{ $prestasi->judul }}
+        </h3>
 
-            </div>
-
-
-            <div class="achievement-card">
-
-                <div class="achievement-icon">
-                    1
-                </div>
-
-                <h3>
-                    Juara 1 Adiwiyata Kabupaten
-                </h3>
-
-                <p>
-                    Sekolah ramah lingkungan dengan pelestarian alam yang asri.
-                </p>
-
-            </div>
-
-
-            <div class="achievement-card">
-
-                <div class="achievement-icon">
-                    ★
-                </div>
-
-                <h3>
-                    Juara Umum OSN
-                </h3>
-
-                <p>
-                    Prestasi gemilang bidang sains tingkat Kabupaten Grobogan.
-                </p>
-
-            </div>
-
-        </div>
+        <p>
+            {{ $prestasi->deskripsi }}
+        </p>
 
     </div>
+
+@endforeach
+
+</div>
 
 </section>
 

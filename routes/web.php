@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\PrestasiController;
 
 
 /*
@@ -78,8 +79,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/guru', [AdminController::class, 'guru'])
         ->name('admin.guru');
 
-    Route::get('/admin/prestasi', [AdminController::class, 'prestasi'])
-        ->name('admin.prestasi');
+    Route::get('/admin/prestasi', [PrestasiController::class, 'index'])
+        ->name('admin.prestasi.index');
 
 
     /*
@@ -104,3 +105,23 @@ Route::middleware('auth')->group(function () {
         ->name('admin.galeri.destroy');
 
 });
+
+
+// =========================
+// ADMIN PRESTASI - CRUD
+// =========================
+
+    Route::get('/admin/prestasi/tambah', [PrestasiController::class, 'create'])
+        ->name('admin.prestasi.create');
+
+    Route::post('/admin/prestasi', [PrestasiController::class, 'store'])
+        ->name('admin.prestasi.store');
+
+    Route::get('/admin/prestasi/{id}/edit', [PrestasiController::class, 'edit'])
+        ->name('admin.prestasi.edit');
+
+    Route::put('/admin/prestasi/{id}', [PrestasiController::class, 'update'])
+        ->name('admin.prestasi.update');
+
+    Route::delete('/admin/prestasi/{id}', [PrestasiController::class, 'destroy'])
+        ->name('admin.prestasi.destroy');
