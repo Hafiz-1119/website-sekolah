@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 use App\Models\Galeri;
 use App\Models\Profil;
 use App\Models\Guru;
+use App\Models\Prestasi;
 
 class PageController extends Controller
 {
     public function home()
     {
-        return view('home');
-    }
+        $prestasis = Prestasi::latest()->get();
 
+        return view('home', compact('prestasis'));
+    }
+    
     public function profil()
     {
 

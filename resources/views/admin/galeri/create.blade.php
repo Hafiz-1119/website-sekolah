@@ -167,7 +167,8 @@
             <input
                 type="file"
                 name="foto"
-                accept="image/*">
+                accept="image/jpeg,image/png,image/webp">
+
 
             @error('foto')
                 <div class="error">

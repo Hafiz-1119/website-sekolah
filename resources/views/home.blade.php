@@ -4,9 +4,30 @@
 
 @section('content')
 
-{{-- ================= HERO ================= --}}
+{{-- ================= HERO SLIDER ================= --}}
 <section class="hero">
 
+    {{-- SLIDER BACKGROUND --}}
+    <div class="hero-slider">
+
+        <div class="hero-slide active"
+            style="background-image: url('{{ asset('images/slider/ft 8.jpg') }}');">
+        </div>
+
+        <div class="hero-slide"
+            style="background-image: url('{{ asset('images/slider/ft 2.jpg') }}');">
+        </div>
+
+        <div class="hero-slide"
+            style="background-image: url('{{ asset('images/slider/ft 1.jpg') }}');">
+        </div>
+
+    </div>
+
+    {{-- OVERLAY --}}
+    <div class="hero-overlay"></div>
+
+    {{-- ISI HERO --}}
     <div class="container hero-container">
 
         <div class="hero-content">
@@ -27,6 +48,24 @@
 
     </div>
 
+    {{-- TOMBOL SLIDER --}}
+    <button class="slider-btn prev" id="prevSlide">
+        &#10094;
+    </button>
+
+    <button class="slider-btn next" id="nextSlide">
+        &#10095;
+    </button>
+
+    {{-- DOT SLIDER --}}
+    <div class="slider-dots">
+
+        <button class="dot active" data-slide="0"></button>
+        <button class="dot" data-slide="1"></button>
+        <button class="dot" data-slide="2"></button>
+
+    </div>
+
 </section>
 
 
@@ -36,6 +75,7 @@
     <div class="container">
 
         <div class="section-title">
+
             <span class="section-label">
                 BULLETIN INFORMASI
             </span>
@@ -47,17 +87,21 @@
             <p>
                 Informasi terbaru mengenai kegiatan dan perkembangan sekolah.
             </p>
+
         </div>
 
 
         <div class="news-grid">
 
+            {{-- BERITA 1 --}}
             <article class="news-card">
 
                 <div class="news-image">
+
                     <div class="image-placeholder">
                         FOTO BERITA
                     </div>
+
                 </div>
 
                 <div class="news-content">
@@ -83,12 +127,15 @@
             </article>
 
 
+            {{-- BERITA 2 --}}
             <article class="news-card">
 
                 <div class="news-image">
+
                     <div class="image-placeholder">
                         FOTO BERITA
                     </div>
+
                 </div>
 
                 <div class="news-content">
@@ -114,12 +161,15 @@
             </article>
 
 
+            {{-- BERITA 3 --}}
             <article class="news-card">
 
                 <div class="news-image">
+
                     <div class="image-placeholder">
                         FOTO BERITA
                     </div>
+
                 </div>
 
                 <div class="news-content">
@@ -148,9 +198,11 @@
 
 
         <div class="center-button">
+
             <a href="/berita" class="btn btn-primary">
                 Lihat Semua Berita →
             </a>
+
         </div>
 
     </div>
@@ -164,6 +216,7 @@
     <div class="container">
 
         <div class="section-title">
+
             <span class="section-label">
                 BANGGA MENJADI BAGIAN
             </span>
@@ -171,60 +224,36 @@
             <h2>
                 Prestasi & Penghargaan Sekolah
             </h2>
+
         </div>
 
 
         <div class="achievement-grid">
 
-            <div class="achievement-card">
+            @foreach($prestasis as $prestasi)
 
-                <div class="achievement-icon">
-                    A
+                <div class="achievement-card">
+
+                    @if($prestasi->foto)
+
+                        <img
+                            src="{{ asset('storage/' . $prestasi->foto) }}"
+                            alt="{{ $prestasi->judul }}"
+                        >
+
+                    @endif
+
+                    <h3>
+                        {{ $prestasi->judul }}
+                    </h3>
+
+                    <p>
+                        {{ $prestasi->deskripsi }}
+                    </p>
+
                 </div>
 
-                <h3>
-                    Akreditasi A Unggul
-                </h3>
-
-                <p>
-                    Diakreditasi secara resmi dengan hasil yang sangat memuaskan.
-                </p>
-
-            </div>
-
-
-            <div class="achievement-card">
-
-                <div class="achievement-icon">
-                    1
-                </div>
-
-                <h3>
-                    Juara 1 Adiwiyata Kabupaten
-                </h3>
-
-                <p>
-                    Sekolah ramah lingkungan dengan pelestarian alam yang asri.
-                </p>
-
-            </div>
-
-
-            <div class="achievement-card">
-
-                <div class="achievement-icon">
-                    ★
-                </div>
-
-                <h3>
-                    Juara Umum OSN
-                </h3>
-
-                <p>
-                    Prestasi gemilang bidang sains tingkat Kabupaten Grobogan.
-                </p>
-
-            </div>
+            @endforeach
 
         </div>
 
@@ -281,7 +310,6 @@
 
 </section>
 
-
 @endsection
 
 
@@ -289,27 +317,82 @@
 
 <style>
 
-    /* ================= HERO ================= */
+    /* ===============================
+       HERO
+    =============================== */
 
     .hero {
         min-height: 520px;
-
+        position: relative;
         display: flex;
         align-items: center;
+        overflow: hidden;
+    }
+
+
+    /* ===============================
+       HERO SLIDER
+    =============================== */
+
+    .hero-slider {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+    }
+
+    .hero-slide {
+        position: absolute;
+        inset: 0;
+
+        background-size: cover;
+        background-position: center;
+
+        opacity: 0;
+
+        transform: scale(1.05);
+
+        transition:
+            opacity 1.2s ease-in-out,
+            transform 6s ease;
+
+        z-index: 1;
+    }
+
+    .hero-slide.active {
+        opacity: 1;
+        transform: scale(1);
+        z-index: 2;
+    }
+
+
+    /* ===============================
+       OVERLAY HERO
+    =============================== */
+
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
 
         background:
             linear-gradient(
                 90deg,
-                rgba(10, 43, 75, 0.95),
-                rgba(18, 60, 105, 0.65)
-            ),
-            url('/images/hero-sekolah.jpg');
+                rgba(10, 43, 75, 0.92),
+                rgba(18, 60, 105, 0.50),
+                rgba(18, 60, 105, 0.20)
+            );
 
-        background-size: cover;
-        background-position: center;
+        z-index: 3;
     }
 
+
+    /* ===============================
+       HERO CONTENT
+    =============================== */
+
     .hero-container {
+        position: relative;
+        z-index: 4;
+
         display: flex;
         align-items: center;
     }
@@ -324,8 +407,10 @@
         display: inline-block;
 
         color: #2f80ed;
+
         font-size: 13px;
         font-weight: bold;
+
         letter-spacing: 1.5px;
 
         margin-bottom: 12px;
@@ -338,17 +423,108 @@
     .hero h1 {
         font-size: 52px;
         line-height: 1.15;
+
         margin-bottom: 20px;
+
+        color: white;
     }
 
     .hero-slogan {
         font-size: 20px;
         margin-bottom: 30px;
+
         color: #e5edf7;
     }
 
 
-    /* ================= NEWS ================= */
+    /* ===============================
+       TOMBOL SLIDER
+    =============================== */
+
+    .slider-btn {
+        position: absolute;
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        z-index: 5;
+
+        width: 48px;
+        height: 48px;
+
+        border: none;
+        border-radius: 50%;
+
+        background: rgba(255, 255, 255, 0.18);
+
+        color: white;
+
+        font-size: 28px;
+
+        cursor: pointer;
+
+        transition: 0.3s;
+    }
+
+    .slider-btn:hover {
+        background: rgba(255, 255, 255, 0.35);
+    }
+
+    .prev {
+        left: 30px;
+    }
+
+    .next {
+        right: 30px;
+    }
+
+
+    /* ===============================
+       DOT SLIDER
+    =============================== */
+
+    .slider-dots {
+        position: absolute;
+
+        bottom: 30px;
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        z-index: 5;
+
+        display: flex;
+        gap: 10px;
+    }
+
+    .dot {
+        width: 11px;
+        height: 11px;
+
+        padding: 0;
+
+        border: none;
+        border-radius: 50%;
+
+        background: rgba(255, 255, 255, 0.45);
+
+        cursor: pointer;
+
+        transition: 0.3s;
+    }
+
+    .dot.active {
+        width: 30px;
+
+        border-radius: 10px;
+
+        background: white;
+    }
+
+
+    /* ===============================
+       NEWS
+    =============================== */
 
     .news-grid {
         display: grid;
@@ -359,9 +535,18 @@
     .news-card {
         background: white;
         border-radius: 12px;
+
         overflow: hidden;
 
         box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+
+        transition: 0.3s;
+    }
+
+    .news-card:hover {
+        transform: translateY(-6px);
+
+        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
     }
 
     .news-image {
@@ -388,26 +573,33 @@
 
     .news-date {
         color: #2f80ed;
+
         font-size: 13px;
         font-weight: bold;
     }
 
     .news-content h3 {
         margin: 10px 0;
+
         color: #123c69;
         font-size: 20px;
     }
 
     .news-content p {
         color: #6b7280;
+
         font-size: 14px;
+
         margin-bottom: 15px;
     }
 
     .news-content a {
         color: #123c69;
+
         font-weight: bold;
         font-size: 14px;
+
+        text-decoration: none;
     }
 
     .center-button {
@@ -416,7 +608,9 @@
     }
 
 
-    /* ================= ACHIEVEMENT ================= */
+    /* ===============================
+       ACHIEVEMENT
+    =============================== */
 
     .achievement-section {
         padding: 70px 0;
@@ -432,28 +626,23 @@
     .achievement-card {
         background: white;
         padding: 30px;
+
         border-radius: 12px;
 
         text-align: center;
+
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
     }
 
-    .achievement-icon {
-        width: 60px;
-        height: 60px;
+    .achievement-card img {
+        width: 100%;
+        height: 220px;
 
-        margin: 0 auto 20px;
+        object-fit: cover;
 
-        border-radius: 50%;
+        border-radius: 10px;
 
-        background: #123c69;
-        color: white;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        font-size: 22px;
-        font-weight: bold;
+        margin-bottom: 20px;
     }
 
     .achievement-card h3 {
@@ -467,11 +656,14 @@
     }
 
 
-    /* ================= PRINCIPAL ================= */
+    /* ===============================
+       PRINCIPAL
+    =============================== */
 
     .principal {
         display: grid;
         grid-template-columns: 350px 1fr;
+
         gap: 60px;
 
         align-items: center;
@@ -494,7 +686,9 @@
 
     .principal-content h2 {
         font-size: 34px;
+
         color: #123c69;
+
         margin-bottom: 20px;
     }
 
@@ -513,25 +707,32 @@
     }
 
 
-    /* ================= RESPONSIVE ================= */
+    /* ===============================
+       RESPONSIVE TABLET
+    =============================== */
 
     @media (max-width: 900px) {
 
         .hero h1 {
-            font-size: 40px;
+            font-size: 42px;
         }
 
         .news-grid,
         .achievement-grid {
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
         }
 
         .principal {
             grid-template-columns: 1fr;
+            gap: 35px;
         }
 
     }
 
+
+    /* ===============================
+       RESPONSIVE MOBILE
+    =============================== */
 
     @media (max-width: 600px) {
 
@@ -560,8 +761,139 @@
             font-size: 27px;
         }
 
+        .slider-btn {
+            width: 40px;
+            height: 40px;
+
+            font-size: 22px;
+        }
+
+        .prev {
+            left: 12px;
+        }
+
+        .next {
+            right: 12px;
+        }
+
     }
 
 </style>
+
+@endsection
+
+
+@section('scripts')
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.dot');
+
+        const nextButton = document.getElementById('nextSlide');
+        const prevButton = document.getElementById('prevSlide');
+
+        let currentSlide = 0;
+        let slideInterval;
+
+
+        function showSlide(index) {
+
+            slides.forEach(function (slide) {
+                slide.classList.remove('active');
+            });
+
+            dots.forEach(function (dot) {
+                dot.classList.remove('active');
+            });
+
+
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+
+            currentSlide = index;
+        }
+
+
+        function nextSlide() {
+
+            currentSlide++;
+
+            if (currentSlide >= slides.length) {
+                currentSlide = 0;
+            }
+
+            showSlide(currentSlide);
+        }
+
+
+        function previousSlide() {
+
+            currentSlide--;
+
+            if (currentSlide < 0) {
+                currentSlide = slides.length - 1;
+            }
+
+            showSlide(currentSlide);
+        }
+
+
+        function startAutoSlide() {
+
+            slideInterval = setInterval(function () {
+                nextSlide();
+            }, 5000);
+
+        }
+
+
+        function resetAutoSlide() {
+
+            clearInterval(slideInterval);
+            startAutoSlide();
+
+        }
+
+
+        nextButton.addEventListener('click', function () {
+
+            nextSlide();
+            resetAutoSlide();
+
+        });
+
+
+        prevButton.addEventListener('click', function () {
+
+            previousSlide();
+            resetAutoSlide();
+
+        });
+
+
+        dots.forEach(function (dot) {
+
+            dot.addEventListener('click', function () {
+
+                const index = parseInt(
+                    this.getAttribute('data-slide')
+                );
+
+                showSlide(index);
+                resetAutoSlide();
+
+            });
+
+        });
+
+
+        startAutoSlide();
+
+    });
+
+</script>
 
 @endsection

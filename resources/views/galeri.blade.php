@@ -144,7 +144,7 @@
     <!-- HEADER -->
     <div class="galeri-header">
 
-        <h1>Galeri Dokumentasi</h1>
+        <h1>Galeri</h1>
 
         <p>
             Potret berbagai kegiatan sekolah,
@@ -183,8 +183,7 @@
                 data-kategori="{{ $galeri->kategori }}">
 
                 <img
-                    src="{{ asset('storage/' . $galeri->foto) }}"
-                    alt="{{ $galeri->judul }}">
+                   <img src="{{ asset($galeri->foto) }}" alt="{{ $galeri->judul }}">
 
                 <div class="galeri-info">
 

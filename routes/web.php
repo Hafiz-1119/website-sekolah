@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\Admin\GuruController;
+use App\Http\Controllers\PrestasiController;
 
 
 /*
@@ -23,18 +24,14 @@ Route::get('/profil', [PageController::class, 'profil'])
 Route::get('/berita', [PageController::class, 'berita'])
     ->name('berita');
 
+
 /*
 |--------------------------------------------------------------------------
 | DETAIL BERITA
 |--------------------------------------------------------------------------
-|
-| Untuk sementara masih diarahkan ke method berita().
-| Nanti ketika fitur berita detail dibuat, bagian ini
-| bisa kita ubah ke method detailBerita().
-|
 */
 
-Route::get('/berita/{id}', [PageController::class, 'berita'])
+Route::get('/berita/1', [PageController::class, 'detailBerita'])
     ->name('berita.detail');
 
 
@@ -65,31 +62,12 @@ Route::post('/admin/login', [AdminController::class, 'authenticate'])
 */
 
 Route::middleware('auth')->group(function () {
-    /*
-    |--------------------------------------------------------------------------
-    | DASHBOARD
-    |--------------------------------------------------------------------------
-    */
 
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
         ->name('admin.dashboard');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | LOGOUT
-    |--------------------------------------------------------------------------
-    */
-
     Route::post('/admin/logout', [AdminController::class, 'logout'])
         ->name('admin.logout');
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | HALAMAN ADMIN
-    |--------------------------------------------------------------------------
-    */
 
     Route::get('/admin/berita', [AdminController::class, 'berita'])
         ->name('admin.berita');
@@ -105,8 +83,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/guru', [AdminController::class, 'guru'])
         ->name('admin.guru');
 
-    Route::get('/admin/prestasi', [AdminController::class, 'prestasi'])
-        ->name('admin.prestasi');
+    Route::get('/admin/prestasi', [PrestasiController::class, 'index'])
+        ->name('admin.prestasi.index');
 
 
     /*
@@ -137,3 +115,23 @@ Route::middleware('auth')->group(function () {
     });
 
 });
+
+
+// =========================
+// ADMIN PRESTASI - CRUD
+// =========================
+
+    Route::get('/admin/prestasi/tambah', [PrestasiController::class, 'create'])
+        ->name('admin.prestasi.create');
+
+    Route::post('/admin/prestasi', [PrestasiController::class, 'store'])
+        ->name('admin.prestasi.store');
+
+    Route::get('/admin/prestasi/{id}/edit', [PrestasiController::class, 'edit'])
+        ->name('admin.prestasi.edit');
+
+    Route::put('/admin/prestasi/{id}', [PrestasiController::class, 'update'])
+        ->name('admin.prestasi.update');
+
+    Route::delete('/admin/prestasi/{id}', [PrestasiController::class, 'destroy'])
+        ->name('admin.prestasi.destroy');

@@ -60,7 +60,7 @@
                 Kelola Guru
             </a>
 
-            <a href="{{ route('admin.prestasi') }}">
+            <a href="{{ route('admin.prestasi.index') }}">
                 <span class="menu-icon">★</span>
                 Kelola Prestasi
             </a>
