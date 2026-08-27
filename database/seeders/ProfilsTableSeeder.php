@@ -7,11 +7,9 @@ use Illuminate\Database\Seeder;
 class ProfilsTableSeeder extends Seeder
 {
 
-    /**
-     * Auto generated seed file
-     *
-     * @return void
-     */
+
+      @return void
+     
     public function run()
     {
         

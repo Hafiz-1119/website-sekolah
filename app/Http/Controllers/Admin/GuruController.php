@@ -37,7 +37,7 @@ class GuruController extends Controller
             'kategori' => 'required|in:guru,staff',
             'mapel' => 'nullable|string|max:255',
             'jabatan' => 'nullable|string|max:255',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:10240',
         ]);
 
         // Kalau Guru, jabatan tidak digunakan

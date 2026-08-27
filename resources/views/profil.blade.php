@@ -53,7 +53,6 @@
 
     {{-- ================= SEJARAH ================= --}}
     @php
-        // Cek apakah ada foto di database. Kalau tidak ada, pakai default.
         $bgFoto = ($profil && $profil->foto_sekolah) 
             ? asset('storage/' . $profil->foto_sekolah) 
             : asset('images/slider/ft 1.jpg');

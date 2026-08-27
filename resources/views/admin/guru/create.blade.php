@@ -183,7 +183,7 @@
                             </span>
 
                             <small>
-                                Maksimal ukuran 2 MB
+                                Maksimal ukuran 10 MB
                             </small>
                         </div>
 
