@@ -3,6 +3,7 @@
 @section('content')
 
 <style>
+
     /* =========================================
        RESET KHUSUS HALAMAN BERITA
     ========================================= */
@@ -90,7 +91,8 @@
     .berita-grid {
         display: grid;
 
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
 
         gap: 24px;
     }
@@ -102,7 +104,6 @@
 
     .berita-card {
         display: flex;
-
         flex-direction: column;
 
         background: #ffffff;
@@ -112,7 +113,6 @@
         overflow: hidden;
 
         text-decoration: none;
-
         color: inherit;
 
         box-shadow:
@@ -138,7 +138,6 @@
 
     .berita-image {
         width: 100%;
-
         height: 190px;
 
         object-fit: cover;
@@ -150,6 +149,26 @@
 
 
     /* =========================================
+       GAMBAR KOSONG
+    ========================================= */
+
+    .berita-no-image {
+        width: 100%;
+        height: 190px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #e9eef4;
+
+        color: #7b8794;
+
+        font-size: 14px;
+    }
+
+
+    /* =========================================
        CONTENT
     ========================================= */
 
@@ -157,6 +176,9 @@
         padding: 19px;
 
         flex: 1;
+
+        display: flex;
+        flex-direction: column;
     }
 
 
@@ -166,6 +188,8 @@
 
     .berita-kategori {
         display: inline-block;
+
+        width: fit-content;
 
         padding: 6px 10px;
 
@@ -223,6 +247,8 @@
         font-size: 12px;
 
         line-height: 1.7;
+
+        flex: 1;
     }
 
 
@@ -263,7 +289,7 @@
     .berita-kosong {
         grid-column: 1 / -1;
 
-        padding: 50px 20px;
+        padding: 60px 20px;
 
         text-align: center;
 
@@ -275,6 +301,20 @@
 
         box-shadow:
             0 5px 20px rgba(0, 0, 0, 0.06);
+    }
+
+
+    .berita-kosong h2 {
+        margin-bottom: 10px;
+
+        color: #123f73;
+    }
+
+
+    .berita-kosong p {
+        margin: 0;
+
+        color: #777;
     }
 
 
@@ -336,7 +376,8 @@
         }
 
 
-        .berita-image {
+        .berita-image,
+        .berita-no-image {
             height: 210px;
         }
     }
@@ -379,274 +420,128 @@
 
 
     {{-- =========================================
-         DAFTAR BERITA
+         DAFTAR BERITA DARI DATABASE
     ========================================== --}}
 
     <div class="berita-grid">
 
+        @forelse($beritas as $berita)
 
-        {{-- =========================================
-             BERITA 1
-        ========================================== --}}
-
-        <a href="{{ route('berita.detail') }}" class="berita-card">
-
-            <img
-                src="{{ asset('images/berita/berita1.jpeg') }}"
-                alt="Siswa SMP Negeri 2 Penawangan Raih Juara Olimpiade Matematika"
-                class="berita-image"
+            <a
+                href="{{ route('berita.detail', $berita->id) }}"
+                class="berita-card"
             >
 
-            <div class="berita-content">
+                {{-- FOTO BERITA --}}
 
-                <span class="berita-category">
-                    Prestasi
-                </span>
+                @if($berita->foto)
 
-                <h3>
-                    Siswa SMP Negeri 2 Penawangan Raih Juara Olimpiade Matematika
-                </h3>
+                    <img
+                        src="{{ asset('storage/' . $berita->foto) }}"
+                        alt="{{ $berita->judul }}"
+                        class="berita-image"
+                    >
 
-                <div class="berita-date">
-                    📅 17 Agustus 2026
+                @else
+
+                    <div class="berita-no-image">
+                        Tidak ada foto
+                    </div>
+
+                @endif
+
+
+                {{-- KONTEN BERITA --}}
+
+                <div class="berita-content">
+
+
+                    {{-- KATEGORI --}}
+
+                    <span class="berita-kategori">
+
+                        {{ $berita->kategori }}
+
+                    </span>
+
+
+                    {{-- JUDUL --}}
+
+                    <h3>
+
+                        {{ $berita->judul }}
+
+                    </h3>
+
+
+                    {{-- TANGGAL --}}
+
+                    <div class="berita-date">
+
+                        📅
+                        {{ $berita->tanggal->translatedFormat('d F Y') }}
+
+                    </div>
+
+
+                    {{-- RINGKASAN --}}
+
+                    <p>
+
+                        @if($berita->ringkasan)
+
+                            {{ \Illuminate\Support\Str::limit($berita->ringkasan, 130) }}
+
+                        @else
+
+                            {{ \Illuminate\Support\Str::limit($berita->isi, 130) }}
+
+                        @endif
+
+                    </p>
+
+
+                    {{-- BACA SELENGKAPNYA --}}
+
+                    <div class="baca-berita">
+
+                        Baca Selengkapnya
+
+                        <span class="arrow">
+                            →
+                        </span>
+
+                    </div>
+
+
                 </div>
 
-                <p>
-                    Prestasi membanggakan kembali diraih oleh siswa SMP Negeri 2 Penawangan dalam ajang olimpiade matematika.
-                </p>
+            </a>
 
-                <span class="berita-link">
-                    Baca Selengkapnya →
-                </span>
+        @empty
+
+            {{-- =====================================
+                 BELUM ADA BERITA
+            ====================================== --}}
+
+            <div class="berita-kosong">
+
+                <h2>
+                    Belum Ada Berita
+                </h2>
+
+                <p>
+                    Belum ada berita sekolah yang dipublikasikan.
+                </p>
 
             </div>
 
-        </a>
-
-
-        {{-- =========================================
-             BERITA 2
-        ========================================== --}}
-
-        <a
-            href="{{ route('berita.detail', 2) }}"
-            class="berita-card"
-        >
-
-            <img
-                src="{{ asset('images/berita/berita2.jpeg') }}"
-                alt="Kegiatan Sekolah"
-                class="berita-image"
-            >
-
-            <div class="berita-content">
-
-                <span class="berita-kategori">
-                    Kegiatan
-                </span>
-
-                <h3>
-                    Kegiatan Masa Pengenalan Lingkungan Sekolah
-                </h3>
-
-                <div class="berita-date">
-                    📅 15 Agustus 2026
-                </div>
-
-                <p>
-                    Kegiatan Masa Pengenalan Lingkungan Sekolah
-                    berlangsung dengan meriah dan diikuti oleh seluruh
-                    peserta didik baru.
-                </p>
-
-                <div class="baca-berita">
-                    Baca Selengkapnya
-                    <span class="arrow">→</span>
-                </div>
-
-            </div>
-
-        </a>
-
-
-        {{-- =========================================
-             BERITA 3
-        ========================================== --}}
-
-        <a
-            href="{{ route('berita.detail', 3) }}"
-            class="berita-card"
-        >
-
-            <img
-                src="{{ asset('images/berita/berita3.jpeg') }}"
-                alt="Asesmen Nasional"
-                class="berita-image"
-            >
-
-            <div class="berita-content">
-
-                <span class="berita-kategori">
-                    Akademik
-                </span>
-
-                <h3>
-                    Persiapan Asesmen Nasional Tahun Pelajaran 2026
-                </h3>
-
-                <div class="berita-date">
-                    📅 12 Agustus 2026
-                </div>
-
-                <p>
-                    Sekolah mulai mempersiapkan siswa untuk
-                    menghadapi pelaksanaan Asesmen Nasional.
-                </p>
-
-                <div class="baca-berita">
-                    Baca Selengkapnya
-                    <span class="arrow">→</span>
-                </div>
-
-            </div>
-
-        </a>
-
-
-        {{-- =========================================
-             BERITA 4
-        ========================================== --}}
-
-        <a
-            href="{{ route('berita.detail', 4) }}"
-            class="berita-card"
-        >
-
-            <img
-                src="{{ asset('images/berita/berita4.jpeg') }}"
-                alt="Pemilihan OSIS"
-                class="berita-image"
-            >
-
-            <div class="berita-content">
-
-                <span class="berita-kategori">
-                    Kesiswaan
-                </span>
-
-                <h3>
-                    Pemilihan Pengurus OSIS Periode 2026/2027
-                </h3>
-
-                <div class="berita-date">
-                    📅 10 Agustus 2026
-                </div>
-
-                <p>
-                    Pemilihan pengurus OSIS dilaksanakan secara
-                    demokratis dengan melibatkan seluruh siswa.
-                </p>
-
-                <div class="baca-berita">
-                    Baca Selengkapnya
-                    <span class="arrow">→</span>
-                </div>
-
-            </div>
-
-        </a>
-
-
-        {{-- =========================================
-             BERITA 5
-        ========================================== --}}
-
-        <a
-            href="{{ route('berita.detail', 5) }}"
-            class="berita-card"
-        >
-
-            <img
-                src="{{ asset('images/berita/berita5.jpg') }}"
-                alt="Kegiatan Sekolah"
-                class="berita-image"
-            >
-
-            <div class="berita-content">
-
-                <span class="berita-kategori">
-                    Pengumuman
-                </span>
-
-                <h3>
-                    Informasi Jadwal Kegiatan Sekolah Bulan Agustus
-                </h3>
-
-                <div class="berita-date">
-                    📅 8 Agustus 2026
-                </div>
-
-                <p>
-                    Berikut informasi mengenai jadwal kegiatan sekolah
-                    yang akan dilaksanakan selama bulan Agustus.
-                </p>
-
-                <div class="baca-berita">
-                    Baca Selengkapnya
-                    <span class="arrow">→</span>
-                </div>
-
-            </div>
-
-        </a>
-
-
-        {{-- =========================================
-             BERITA 6
-        ========================================== --}}
-
-        <a
-            href="{{ route('berita.detail', 6) }}"
-            class="berita-card"
-        >
-
-            <img
-                src="{{ asset('images/berita/berita6.jpg') }}"
-                alt="Program Literasi"
-                class="berita-image"
-            >
-
-            <div class="berita-content">
-
-                <span class="berita-kategori">
-                    Akademik
-                </span>
-
-                <h3>
-                    Program Peningkatan Literasi Siswa di Sekolah
-                </h3>
-
-                <div class="berita-date">
-                    📅 5 Agustus 2026
-                </div>
-
-                <p>
-                    Sekolah terus meningkatkan budaya literasi
-                    melalui berbagai program membaca bagi siswa.
-                </p>
-
-                <div class="baca-berita">
-                    Baca Selengkapnya
-                    <span class="arrow">→</span>
-                </div>
-
-            </div>
-
-        </a>
-
+        @endforelse
 
     </div>
 
+
 </div>
+
 
 @endsection
