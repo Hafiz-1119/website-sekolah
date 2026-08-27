@@ -82,7 +82,7 @@ class PrestasiController extends Controller
         $request->validate([
             'judul' => 'required',
             'deskripsi' => 'required',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:10000',
         ]);
 
         $data = [

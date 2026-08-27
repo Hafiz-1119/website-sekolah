@@ -10,8 +10,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AdminUserSeeder::class,
+            GaleriSeeder::class,
+            GurusTableSeeder::class,
+            ProfilsTableSeeder::class,
         ]);
-        $this->call(GurusTableSeeder::class);
-        $this->call(ProfilsTableSeeder::class);
     }
 }
