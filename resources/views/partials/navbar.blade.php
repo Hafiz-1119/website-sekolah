@@ -63,19 +63,43 @@
 
 </nav>
 
+<script>
+    let lastScrollTop = 0;
+    const navbar = document.querySelector('.navbar');
+    const scrollThreshold = 50; // Batas minimal scroll sebelum efek aktif
+
+    window.addEventListener('scroll', function() {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+            // Jika user scroll KE BAWAH -> Sembunyikan navbar
+            navbar.classList.add('navbar-hidden');
+        } else {
+            // Jika user scroll KE ATAS -> Munculkan kembali navbar
+            navbar.classList.remove('navbar-hidden');
+        }
+        
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Untuk mencegah nilai negatif di mobile
+    });
+</script>
 
 <style>
 
-    /* ================= NAVBAR ================= */
-
-    .navbar {
+.navbar {
         background: white;
         padding: 12px 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9999;
+        
+        transition: transform 0.3s ease-in-out;
+    }
 
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-
-        position: relative;
-        z-index: 10;
+    .navbar-hidden {
+        transform: translateY(-100%);
     }
 
 

@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\Admin\GuruController;
 use App\Http\Controllers\PrestasiController;
 
 
@@ -73,8 +75,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/galeri', [GaleriController::class, 'index'])
         ->name('admin.galeri');
 
-    Route::get('/admin/profil', [AdminController::class, 'profil'])
+    Route::get('/admin/profil', [ProfilController::class, 'edit'])
         ->name('admin.profil');
+    Route::put('/admin/profil/update', [ProfilController::class, 'update'])
+        ->name('admin.profil.update');
 
     Route::get('/admin/guru', [AdminController::class, 'guru'])
         ->name('admin.guru');
@@ -88,7 +92,7 @@ Route::middleware('auth')->group(function () {
     | ADMIN GALERI - CRUD
     |--------------------------------------------------------------------------
     */
-
+    
     Route::get('/admin/galeri/tambah', [GaleriController::class, 'create'])
         ->name('admin.galeri.create');
 
@@ -103,6 +107,12 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/admin/galeri/{id}', [GaleriController::class, 'destroy'])
         ->name('admin.galeri.destroy');
+
+    Route::prefix('admin')->name('admin.')->group(function () {
+
+    Route::resource('guru', GuruController::class)
+        ->except(['show']);
+    });
 
 });
 

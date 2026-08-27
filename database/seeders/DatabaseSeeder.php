@@ -11,5 +11,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminUserSeeder::class,
         ]);
+        $this->call(GurusTableSeeder::class);
+        $this->call(ProfilsTableSeeder::class);
     }
 }

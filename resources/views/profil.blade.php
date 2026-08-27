@@ -1,319 +1,420 @@
 @extends('layouts.app')
 
-@section('title', 'Profil Sekolah')
+@section('title', 'Profil Sekolah - SMP Negeri 2 Penawangan')
 
 @section('content')
 
+<div class="profil-page">
+
+    {{-- ================= HEADER PROFIL ================= --}}
+    
+            <div class="section-title">
+            <span class="section-label">
+                PROFIL SEKOLAH
+            </span>
+
+            <h2>
+                Profil SMP Negeri 2 Penawangan
+            </h2>
+
+            <p>
+                Sejarah, Visi Misi, Struktur Organisasi, serta Guru dan Tenaga Kependidikan
+            </p>
+        </div>
+
+    {{-- ================= VISI & MISI ================= --}}
+    <section class="vision-mission">
+        <div class="vision-mission-wrapper">
+            <div class="vision-box">
+                <h2>Visi Sekolah</h2>
+                {{ $profil->visi }}
+            </div>
+            <div class="mission-box">
+                <h2>Misi Sekolah</h2>
+                <ol class="mission-list">
+                    @if($profil && $profil->misi)
+                        {{-- Memecah teks berdasarkan baris baru (Enter) dari inputan admin --}}
+                        @foreach(explode("\n", $profil->misi) as $index => $item)
+                            @if(trim($item) != '')
+                                <li>
+                                    {{-- Membuat nomor otomatis 01, 02, dst --}}
+                                    <span class="mission-number">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}.</span>
+                                    <span>{{ trim($item) }}</span>
+                                </li>
+                            @endif
+                        @endforeach
+                    @else
+                        <li><span>Belum ada misi.</span></li>
+                    @endif
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    {{-- ================= SEJARAH ================= --}}
+    @php
+        // Cek apakah ada foto di database. Kalau tidak ada, pakai default.
+        $bgFoto = ($profil && $profil->foto_sekolah) 
+            ? asset('storage/' . $profil->foto_sekolah) 
+            : asset('images/slider/ft 1.jpg');
+    @endphp
+
+    {{-- Tambahkan inline style di sini, CSS aslinya biarkan saja --}}
+    <section class="history-section" style="background-image: url('{{ $bgFoto }}') !important;">
+        <div class="history-content">        
+            <div class="section-title">
+                <span class="section-label">
+                    SEJARAH SINGKAT
+                </span>
+    
+            @if($profil && $profil->sejarah)
+                {{-- Memecah teks berdasarkan Enter, lalu looping jadi paragraf terpisah --}}
+                @foreach(explode("\n", $profil->sejarah) as $paragraph)
+                    @if(trim($paragraph) != '')
+                        <p>{{ trim($paragraph) }}</p>
+                    @endif
+                @endforeach
+            @else
+                <p>Belum ada sejarah sekolah.</p>
+            @endif
+            </div>
+            
+        </div>
+    </section>
+
+    {{-- ================= STRUKTUR ORGANISASI ================= --}}
+    @php
+        $kepalaSekolah = [
+            'nama' => 'Edy Susanto, S.Pd.',
+            'jabatan' => 'Kepala Sekolah',
+            'foto' => 'Edy.jpeg',
+        ];
+
+        $wakilKepala = [
+            ['nama' => 'Sudar, S.Pd.', 'jabatan' => 'Wakil Kepala Sekolah', 'foto' => 'sudar.jpeg'],
+            ['nama' => 'Parsuni, S.Pd.', 'jabatan' => 'Wakil Kepala Sekolah', 'foto' => 'parsuni.jpeg'],
+            ['nama' => 'Agung Ruswanto, S.Pd.', 'jabatan' => 'Wakil Kepala Sekolah', 'foto' => 'agung.jpeg'],
+        ];
+
+        $strukturBawah = [
+            ['nama' => 'Sunawan, S.Pd.', 'jabatan' => 'PKS Bidang Kurikulum', 'foto' => 'sunawan.jpeg'],
+            ['nama' => 'Mohamad Suharto, S.Pd.', 'jabatan' => 'PKS Bidang Kesiswaan', 'foto' => 'mohamad.jpeg'],
+            ['nama' => 'Endah Widyaningsih, S.Pd.', 'jabatan' => 'PKS Bidang Sarana Prasarana', 'foto' => 'endah.jpeg'],
+            ['nama' => 'Mustaqhfirin, M.Pd.', 'jabatan' => 'PKS Bidang Hubungan Masyarakat', 'foto' => 'mustaqfirin.jpeg'],
+            ['nama' => 'Fathonah, S.Ag.', 'jabatan' => 'Bendahara BOS', 'foto' => 'fathonah.jpeg'],
+            ['nama' => 'Priska Sihalina', 'jabatan' => 'Operator Sekolah', 'foto' => 'priska.jpeg'],
+        ];
+    @endphp
+
+    <section class="organization-section">
+        <div class="organization-container">
+            <div class="section-title text-center">
+                <span class="section-label">STRUKTUR SEKOLAH</span>
+                <h2>Struktur Organisasi</h2>
+                <p>Struktur organisasi SMP Negeri 2 Penawangan.</p>
+            </div>
+
+            {{-- Kepala Sekolah --}}
+            <div class="org-level org-head">
+                <div class="org-person">
+                    <div class="org-photo">
+                        @if (!empty($kepalaSekolah['foto']))
+                            <img src="{{ asset('images/tendik/' . $kepalaSekolah['foto']) }}" alt="{{ $kepalaSekolah['nama'] }}">
+                        @else
+                            <span>Foto</span>
+                        @endif
+                    </div>
+                    <div class="org-info">
+                        <h4>{{ $kepalaSekolah['nama'] }}</h4>
+                        <p>{{ $kepalaSekolah['jabatan'] }}</p>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Wakil Kepala Sekolah --}}
+            <div class="org-level org-wakil">
+                @foreach ($wakilKepala as $person)
+                    <div class="org-person">
+                        <div class="org-photo">
+                            @if (!empty($person['foto']))
+                                <img src="{{ asset('images/tendik/' . $person['foto']) }}" alt="{{ $person['nama'] }}">
+                            @else
+                                <span>Foto</span>
+                            @endif
+                        </div>
+                        <div class="org-info">
+                            <h4>{{ $person['nama'] }}</h4>
+                            <p>{{ $person['jabatan'] }}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            {{-- PKS / Staff Bawah --}}
+            <div class="org-level org-bottom">
+                @foreach ($strukturBawah as $person)
+                    <div class="org-person">
+                        <div class="org-photo">
+                            @if (!empty($person['foto']))
+                                <img src="{{ asset('images/tendik/' . $person['foto']) }}" alt="{{ $person['nama'] }}">
+                            @else
+                                <span>Foto</span>
+                            @endif
+                        </div>
+                        <div class="org-info">
+                            <h4>{{ $person['nama'] }}</h4>
+                            <p>{{ $person['jabatan'] }}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    {{-- ================= GURU & TENAGA KEPENDIDIKAN ================= --}}
+
+    <section class="staff-section">
+
+        <div class="staff-container">
+
+            <div class="section-title text-center">
+                <span class="section-label">TENAGA PENDIDIK</span>
+
+                <h2>Guru & Tenaga Kependidikan</h2>
+
+                <p>
+                    Tenaga pendidik dan tenaga kependidikan SMP Negeri 2 Penawangan.
+                </p>
+            </div>
+
+
+            <div class="staff-grid">
+
+                @forelse ($guruStaff as $item)
+
+                    <div class="staff-card">
+
+                        {{-- FOTO --}}
+                        <div class="staff-photo">
+
+                            @if ($item->foto)
+
+                                <img
+                                    src="{{ asset('storage/' . $item->foto) }}"
+                                    alt="{{ $item->nama }}"
+                                >
+
+                            @else
+
+                                <span>Foto Belum Tersedia</span>
+
+                            @endif
+
+                        </div>
+
+
+                        {{-- INFORMASI --}}
+                        <div class="staff-info">
+
+                            <h4>
+                                {{ $item->nama }}
+                            </h4>
+
+
+                            @if ($item->kategori === 'guru')
+
+                                <p>
+                                    Guru
+                                </p>
+
+                                @if ($item->mapel)
+                                    <span class="staff-position">
+                                        {{ $item->mapel }}
+                                    </span>
+                                @endif
+
+                            @else
+
+                                <p>
+                                    Staff
+                                </p>
+
+                                @if ($item->jabatan)
+                                    <span class="staff-position">
+                                        {{ $item->jabatan }}
+                                    </span>
+                                @endif
+
+                            @endif
+
+                        </div>
+
+                    </div>
+
+                @empty
+
+                    <div class="staff-empty">
+                        Belum ada data guru atau tenaga kependidikan.
+                    </div>
+
+                @endforelse
+
+            </div>
+
+        </div>
+
+    </section>
+
+@section('styles')
 <style>
-
-    /* =========================================================
-       PALET WARNA
-    ========================================================= */
-
-    :root {
-        --navy: #071A52;
-        --blue-dark: #123B8F;
-        --blue: #1E56B0;
-        --blue-mid: #356AC0;
-        --blue-light: #EAF2FF;
-        --blue-soft: #DCE9FA;
-        --blue-bg: #EDF4FC;
-
-        --text-dark: #344054;
-        --text: #667085;
-        --border: #D7E2EF;
-        --white: #ffffff;
+    .profil-page {
+        min-height: 100vh;
+        padding: 130px 0 80px;
+        background: #eef4f9;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
     }
 
-
-    /* =========================================================
-       GLOBAL
-    ========================================================= */
-
-    .profile-page {
-        font-family: 'Poppins', sans-serif;
-        color: var(--text);
-        background: var(--white);
-        overflow: hidden;
+    .text-center {
+        text-align: center;
     }
 
-    .container-profile {
-        width: 86%;
-        max-width: 1250px;
-        margin: 0 auto;
+    /* ================= HEADER ================= */
+    .profil-header {
+        text-align: center;
+        padding: 0px 7% 50px;
     }
-
-
-    /* =========================================================
-       HERO
-    ========================================================= */
-
-    .profile-hero {
-        background: var(--blue-light);
-        padding: 75px 0;
-    }
-
-    .profile-hero h1 {
-        color: var(--navy);
-        font-size: 44px;
-        font-weight: 800;
+    .profil-header h1 {
         margin: 0 0 12px;
-        letter-spacing: -1px;
-    }
-
-    .profile-hero p {
-        color: #59677D;
-        font-size: 17px;
-        margin: 0;
-        line-height: 1.7;
-    }
-
-
-    /* =========================================================
-       GENERAL SECTION
-    ========================================================= */
-
-    .profile-section {
-        padding: 80px 0;
-    }
-
-    .section-label {
-        color: var(--blue-dark);
-        font-size: 13px;
+        font-size: 34px;
         font-weight: 700;
-        letter-spacing: 4px;
-        text-transform: uppercase;
-        margin-bottom: 8px;
+        color: var(--overlay-1);
     }
-
-    .section-title {
-        color: var(--navy);
-        font-size: 35px;
-        font-weight: 800;
-        margin-bottom: 15px;
-    }
-
-
-    /* =========================================================
-       TENTANG SEKOLAH
-    ========================================================= */
-
-    .school-photo {
-        height: 370px;
-        background: var(--blue-soft);
-        border-radius: 22px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        overflow: hidden;
-        color: #52709E;
-        font-weight: 600;
-
-        transition: all 0.35s ease;
-    }
-
-    .school-photo:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(18, 59, 143, 0.12);
-    }
-
-    .school-photo img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .school-description {
-        padding-left: 25px;
-    }
-
-    .school-description p {
-        font-size: 16px;
-        line-height: 1.9;
-        color: var(--text);
-        margin-bottom: 18px;
-    }
-
-    .school-info {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        margin-top: 25px;
-    }
-
-    .school-info-icon {
-        width: 44px;
-        height: 44px;
-
-        background: var(--blue-light);
-        color: var(--blue-dark);
-
-        border-radius: 12px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        font-size: 19px;
-    }
-
-    .school-info strong {
-        color: var(--navy);
-        display: block;
-        margin-bottom: 3px;
-    }
-
-    .school-info span {
-        color: var(--text);
+    .profil-header p {
+        margin: 0;
         font-size: 14px;
+        line-height: 1.7;
+        color: var(--text);
     }
 
-
-    /* =========================================================
-       VISI & MISI
-    ========================================================= */
-
+    /* ================= VISI MISI ================= */
     .vision-mission {
-        background: var(--blue-bg);
-        padding: 80px 0;
+        background: #ffffff;
+        padding: 80px 7%;
     }
-
     .vision-mission-wrapper {
         display: grid;
         grid-template-columns: 0.9fr 1.1fr;
         gap: 35px;
         align-items: stretch;
     }
-
-
-    /* =====================
-       VISI
-    ===================== */
-
     .vision-box {
-        background: var(--blue-dark);
-        color: var(--white);
-
+        background: var(--overlay-2);
+        color: var(--bg-1);
         border-radius: 22px;
         padding: 42px;
-
         position: relative;
         overflow: hidden;
-
         transition: all 0.35s ease;
     }
-
     .vision-box:hover {
         transform: translateY(-6px);
-        box-shadow: 0 18px 35px rgba(18, 59, 143, 0.22);
+        box-shadow: 0 18px 35px rgba(18, 60, 105, 0.22);
     }
-
     .vision-box::after {
         content: "";
-
         position: absolute;
-
         width: 190px;
         height: 190px;
-
         border-radius: 50%;
-
         background: rgba(255,255,255,0.06);
-
         right: -75px;
         bottom: -75px;
     }
-
     .vision-box h2 {
         font-size: 28px;
         font-weight: 800;
         margin-bottom: 25px;
-
         position: relative;
         z-index: 1;
     }
-
     .vision-box p {
         font-size: 17px;
         line-height: 1.9;
         margin: 0;
-
         position: relative;
         z-index: 1;
     }
-
-
-    /* =====================
-       MISI
-    ===================== */
-
     .mission-box {
-        background: var(--white);
-
-        border: 1px solid var(--border);
+        background: var(--bg-2);
+        border: 1px solid var(--heading);
         border-radius: 22px;
-
         padding: 42px;
-
         transition: all 0.35s ease;
     }
-
     .mission-box:hover {
         transform: translateY(-6px);
-
-        border-color: var(--blue);
-
-        box-shadow:
-            0 18px 35px rgba(18, 59, 143, 0.10);
+        border-color: var(--primary);
+        box-shadow: 0 18px 35px rgba(18, 60, 105, 0.10);
     }
-
     .mission-box h2 {
-        color: var(--navy);
-
+        color: var(--heading);
         font-size: 28px;
         font-weight: 800;
-
         margin-bottom: 25px;
     }
-
     .mission-list {
         list-style: none;
         padding: 0;
         margin: 0;
     }
-
     .mission-list li {
         display: flex;
         gap: 15px;
-
         margin-bottom: 17px;
-
         line-height: 1.7;
-
         color: var(--text);
     }
-
     .mission-number {
         min-width: 27px;
-
-        color: var(--blue);
-
+        color: var(--primary);
         font-weight: 800;
     }
 
+    /* ================= SEJARAH ================= */
 
-    /* =========================================================
-       SEJARAH
-    ========================================================= */
+.history-section {
+        padding: 80px 7%;
+        position: relative;
+        min-height: 500px;
 
-    .history-section {
-        padding: 85px 0;
+        background-image: url('/images/slider/ft 1.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; 
+
+        overflow: hidden;
+    }
+
+    .history-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            125deg,
+            rgba(0, 63, 152, 0.40) 0%,
+            rgba(0, 53, 142, 0.82) 50%,
+            rgba(0, 63, 152, 0.0) 100%
+            ); 
+        z-index: 0;
     }
 
     .history-content {
-        max-width: 950px;
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 900px; /* Ditambahkan max-width biar paragrafnya tidak terlalu melebar ke samping */
         margin: auto;
     }
 
@@ -322,492 +423,297 @@
         margin-bottom: 35px;
     }
 
-    .history-content p {
-        color: var(--text);
+    /* Mengubah warna teks judul di atas menjadi PUTIH agar kontras dengan background gelap */
+    .history-content .section-label {
+        color: #dbeafe; 
+    }
 
+    .history-content h2 {
+        color: #ffffff !important; 
+    }
+
+    .history-content h3 {
+        color: #e5edf7 !important;
+        font-weight: 600;
+    }
+
+    /* Mengatur warna dan tampilan paragraf sejarah */
+    .history-content .section-title p {
+        color: #f1f5f9; /* Menggunakan warna putih keabuan terang agar nyaman dibaca */
         font-size: 16px;
         line-height: 1.9;
-
         margin-bottom: 20px;
+        text-align: justify; 
     }
-
-    .history-highlight {
-        margin-top: 30px;
-
-        padding: 25px 30px;
-
-        background: #F4F7FC;
-
-        border-left: 5px solid var(--blue-dark);
-
-        border-radius: 0 14px 14px 0;
-
-        line-height: 1.7;
-    }
-
-    .history-highlight strong {
-        color: var(--navy);
-    }
-
-
-    /* =========================================================
-       STRUKTUR ORGANISASI
-    ========================================================= */
-
+    
+    /* ================= STRUKTUR ORGANISASI ================= */
     .organization-section {
-        background: var(--blue-bg);
-
-        padding: 85px 0 100px;
+        background: #eef4f9;
+        padding: 90px 7% 100px;
     }
-
-    .organization-header {
-        text-align: center;
-
-        margin-bottom: 60px;
-    }
-
-    .organization-header h2 {
-        color: var(--navy);
-
-        font-size: 36px;
-        font-weight: 800;
-
-        margin: 8px 0 12px;
-    }
-
-    .organization-header p {
-        color: var(--text);
-
-        margin: 0;
-    }
-
-
-    /* =====================
-       ORGANIZATION CHART
-    ===================== */
-
-    .org-chart {
+    .organization-container {
         width: 100%;
-        text-align: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .organization-section .section-title {
+        margin-bottom: 75px;
     }
 
+    /* LEVEL UMUM */
     .org-level {
         display: flex;
-
         justify-content: center;
-
-        gap: 30px;
-
+        align-items: center;
         position: relative;
     }
 
-
-    /* =====================
-       PERSON CARD
-    ===================== */
-
+    /* KARTU ORANG */
     .org-person {
-        width: 250px;
-        min-height: 150px;
-
-        background: var(--white);
-
-        border: 1px solid var(--border);
-
-        border-radius: 17px;
-
-        padding: 23px 20px;
-
+        width: 290px;
+        background: var(--card);
+        border: 1px solid var(--bg-1);
+        border-radius: 12px;
         display: flex;
-
-        flex-direction: column;
-
         align-items: center;
-
-        justify-content: center;
-
+        padding: 0;
+        text-align: left;
         position: relative;
-
         z-index: 2;
-
-        box-shadow:
-            0 5px 15px rgba(23, 55, 100, 0.04);
-
-        transition: all 0.3s ease;
-
-        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     }
-
     .org-person:hover {
-        transform: translateY(-7px);
-
-        border-color: var(--blue);
-
-        box-shadow:
-            0 15px 30px rgba(23, 55, 100, 0.13);
+        transform: translateY(-5px);
+        border-color: var(--primary);
+        box-shadow: 0 15px 30px rgba(24, 59, 110, 0.15);
     }
 
-
-    /* =====================
-       FOTO ORGANISASI
-    ===================== */
-
+    /* FOTO FULL DI KIRI */
     .org-photo {
-        width: 65px;
-        height: 65px;
-
-        border-radius: 50%;
-
-        background: var(--blue-soft);
-
-        color: var(--blue-dark);
-
-        display: flex;
-
-        align-items: center;
-        justify-content: center;
-
-        font-weight: 800;
-        font-size: 17px;
-
-        margin-bottom: 13px;
-
+        width: 95px;
+        height: 110px;
+        margin: 0;
+        border-radius: 12px 0 0 12px;
         overflow: hidden;
+        background: var(--input);
+        flex-shrink: 0;
+        position: relative;
     }
-
     .org-photo img {
         width: 100%;
         height: 100%;
-
         object-fit: cover;
+        object-position: center top;
     }
-
-
-    .org-person h4 {
-        color: var(--navy);
-
-        font-size: 16px;
-        font-weight: 800;
-
-        margin: 0 0 6px;
-    }
-
-    .org-person span {
-        color: var(--text);
-
-        font-size: 13px;
-    }
-
-
-    /* =====================
-       CONNECTOR
-    ===================== */
-
-    .org-connector {
-        width: 2px;
-        height: 45px;
-
-        background: #8BA6CC;
-
-        margin: 0 auto;
-    }
-
-
-    /* =====================
-       MIDDLE LEVEL
-    ===================== */
-
-    .org-middle {
-        position: relative;
-
+    .org-photo span {
         display: flex;
-
+        align-items: center;
         justify-content: center;
-    }
-
-
-    /* =====================
-       BOTTOM LEVEL
-    ===================== */
-
-    .org-bottom {
-        display: grid;
-
-        grid-template-columns:
-            repeat(4, 1fr);
-
-        gap: 25px;
-
-        position: relative;
-
-        margin-top: 45px;
-    }
-
-
-    /* GARIS HORIZONTAL */
-
-    .org-bottom::before {
-        content: "";
-
-        position: absolute;
-
-        top: -23px;
-
-        left: 12.5%;
-        right: 12.5%;
-
-        height: 2px;
-
-        background: #8BA6CC;
-    }
-
-
-    /* GARIS VERTIKAL SETIAP CARD */
-
-    .org-bottom .org-person::before {
-        content: "";
-
-        position: absolute;
-
-        top: -25px;
-
-        left: 50%;
-
-        width: 2px;
-        height: 25px;
-
-        background: #8BA6CC;
-    }
-
-
-    /* =========================================================
-       GURU & TENAGA KEPENDIDIKAN
-    ========================================================= */
-
-    .staff-section {
-        background: var(--white);
-
-        padding: 90px 0 100px;
-    }
-
-
-    /*
-       AREA STAFF DIBUAT LEBIH KECIL
-       AGAR ADA MARGIN KIRI DAN KANAN
-    */
-
-    .staff-container {
-        width: 78%;
-
-        max-width: 1080px;
-
-        margin: 0 auto;
-    }
-
-
-    /* =====================
-       HEADER
-    ===================== */
-
-    .staff-header {
-        text-align: center;
-
-        margin-bottom: 50px;
-    }
-
-    .staff-header .section-label {
-        color: var(--blue-dark);
-    }
-
-    .staff-header h2 {
-        color: var(--navy);
-
-        font-size: 36px;
-        font-weight: 800;
-
-        margin: 8px 0 12px;
-    }
-
-    .staff-header p {
+        height: 100%;
+        font-size: 11px;
         color: var(--text);
+    }
 
-        font-size: 15px;
-
+    /* INFORMASI TEKS */
+    .org-info {
+        padding: 12px 15px;
+        flex-grow: 1;
+    }
+    .org-info h4 {
+        color: var(--heading);
+        font-size: 14px;
+        font-weight: 800;
+        line-height: 1.3;
+        margin: 0 0 4px;
+    }
+    .org-info p {
+        color: var(--text);
+        font-size: 11px;
+        line-height: 1.3;
         margin: 0;
     }
 
+    /* GARIS PENGHUBUNG */
+    .org-head {
+        margin-bottom: 50px;
+    }
+    .org-head::after {
+        content: "";
+        position: absolute;
+        width: 2px;
+        height: 50px;
+        background: var(--primary);
+        bottom: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+    }
+    .org-wakil {
+        display: flex;
+        justify-content: center;
+        gap: 35px;
+        margin-bottom: 60px;
+        position: relative;
+    }
+    .org-wakil::before {
+        content: "";
+        position: absolute;
+        height: 2px;
+        background: var(--primary);
+        top: -25px;
+        left: calc(50% - 326px);
+        right: calc(50% - 326px);
+        z-index: 0;
+    }
+    .org-wakil .org-person::before {
+        content: "";
+        position: absolute;
+        width: 2px;
+        height: 25px;
+        background: var(--primary);
+        top: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: -1;
+    }
+    .org-bottom {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 15px;
+        position: relative;
+        margin-top: 50px;
+        max-width: 1150px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .org-bottom::before {
+        content: "";
+        position: absolute;
+        height: 2px;
+        background: var(--primary);
+        top: -25px;
+        left: 1.5%;
+        right: 0.5%;
+        z-index: 0;
+    }
+    .org-bottom .org-person::before {
+        content: "";
+        position: absolute;
+        width: 2px;
+        height: 25px;
+        background: var(--primary);
+        top: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: -1;
+    }
+    .org-bottom .org-person {
+        width: 100%;
+    }
 
-    /* =====================
-       GRID
-       3 CARD PER BARIS
-    ===================== */
-
+    /* ================= GURU & TENDIK ================= */
+    .staff-section {
+        background: var(--card);
+        padding: 90px 7% 100px;
+    }
+    .staff-container {
+        width: 100%;
+        max-width: 1080px;
+        margin: 0 auto;
+    }
+    .staff-section .section-title {
+        margin-bottom: 50px;
+    }
     .staff-grid {
         display: grid;
-
-        grid-template-columns:
-            repeat(3, 1fr);
-
-        gap: 30px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 36px;
+        align-items: start;
     }
-
-
-    /* =====================
-       STAFF CARD
-    ===================== */
-
     .staff-card {
-        background: var(--white);
-
-        border: 1px solid var(--border);
-
-        border-radius: 18px;
-
+        background: var(--bg-2);
+        border: 1px solid var(--input);
+        border-radius: 10px;
         overflow: hidden;
-
         transition: all 0.3s ease;
-
         cursor: pointer;
     }
-
     .staff-card:hover {
         transform: translateY(-7px);
-
-        border-color: var(--blue);
-
-        box-shadow:
-            0 16px 30px rgba(24, 59, 110, 0.13);
+        border-color: var(--primary);
+        box-shadow: 0 16px 30px rgba(18, 60, 105, 0.13);
     }
-
-
-    /* =====================
-       STAFF PHOTO
-    ===================== */
-
     .staff-photo {
         width: 100%;
-
-        height: 190px;
-
-        background: var(--blue-soft);
-
+        height: 250px;
+        background: var(--bg-2);
         display: flex;
-
         align-items: center;
         justify-content: center;
-
-        color: #52709E;
-
+        color: var(--primary);
         font-size: 14px;
         font-weight: 600;
-
         overflow: hidden;
     }
-
     .staff-photo img {
         width: 100%;
         height: 100%;
-
         object-fit: cover;
+        object-position: center 10%;
     }
-
-
-    /* =====================
-       STAFF INFO
-    ===================== */
-
     .staff-info {
         padding: 20px 15px 22px;
-
         text-align: center;
     }
-
     .staff-info h4 {
-        color: var(--navy);
-
+        color: var(--heading);
         font-size: 16px;
-
         font-weight: 800;
-
         margin: 0 0 7px;
     }
-
     .staff-info p {
         color: var(--text);
-
         font-size: 13px;
-
         margin: 0;
     }
-
-
-    /* =====================
-       POSITION
-    ===================== */
-
     .staff-position {
         display: inline-block;
-
         margin-top: 11px;
-
         padding: 6px 14px;
-
-        background: var(--blue-light);
-
-        color: var(--blue-dark);
-
+        background: var(--card);
+        color: var(--heading);
         border-radius: 50px;
-
         font-size: 11px;
-
         font-weight: 700;
     }
 
-
-    /* =========================================================
-       RESPONSIVE
-    ========================================================= */
-
-    @media (max-width: 1000px) {
-
-        .staff-container {
-            width: 88%;
+    /* ================= RESPONSIF ================= */
+    @media (max-width: 1100px) {
+        .org-person { width: 170px; }
+        .org-wakil { gap: 20px; }
+        .org-wakil::before {
+            left: calc(50% - 280px);
+            right: calc(50% - 280px);
         }
-
-        .vision-mission-wrapper {
-            grid-template-columns: 1fr;
-        }
-
         .org-bottom {
-            grid-template-columns:
-                repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
+            row-gap: 70px;
         }
-
-        .org-bottom::before {
-            display: none;
-        }
-
-        .org-bottom .org-person::before {
-            display: none;
-        }
+        .org-bottom::before, .org-bottom .org-person::before { display: none; }
     }
-
-
+    @media (max-width: 1000px) {
+        .vision-mission-wrapper { grid-template-columns: 1fr; }
+        .org-bottom { grid-template-columns: repeat(2, 1fr); }
+        .org-bottom::before, .org-bottom .org-person::before { display: none; }
+    }
     @media (max-width: 768px) {
-
-        .container-profile {
-            width: 90%;
+        .profil-header h1 { font-size: 34px; }
+        .history-header h2 { 
+            font-size: 34px; 
+            white-space: normal;
         }
-
-        .profile-hero {
-            padding: 55px 0;
-        }
-
-        .profile-hero h1 {
-            font-size: 34px;
-        }
-
-        .profile-section,
+        .profil-header p { font-size: 18px; }
+        
         .vision-mission,
         .history-section,
         .organization-section,
@@ -815,771 +721,57 @@
             padding-top: 60px;
             padding-bottom: 60px;
         }
-
-        .section-title {
-            font-size: 30px;
-        }
-
-        .school-description {
-            padding-left: 0;
-        }
-
-        .school-photo {
-            height: 280px;
-        }
-
-        .vision-box,
-        .mission-box {
-            padding: 30px;
-        }
-
-        .org-bottom {
-            grid-template-columns: 1fr;
-        }
-
+        .vision-box, .mission-box { padding: 30px; }
+        .org-bottom { grid-template-columns: 1fr; }
         .org-level {
             flex-direction: column;
-
             align-items: center;
         }
-
-        .staff-grid {
-            grid-template-columns:
-                repeat(2, 1fr);
+        .staff-grid { grid-template-columns: repeat(2, 1fr); }
+        .organization-section .section-title { margin-bottom: 60px; }
+        
+        .org-wakil {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 70px;
         }
-
+        .org-wakil::before { left: 15%; right: 15%; }
+        .org-wakil .org-person { width: 100%; }
+        .org-bottom { gap: 55px 15px; }
+        .org-person { width: 100%; }
+        .org-photo {
+            width: 105px;
+            height: 105px;
+        }
     }
-
-
     @media (max-width: 550px) {
-
-        .staff-container {
-            width: 90%;
-        }
-
-        .staff-grid {
+        .staff-grid { grid-template-columns: 1fr; }
+        .staff-photo { height: 220px; }
+        .org-person { width: 230px; }
+        
+        .org-wakil {
             grid-template-columns: 1fr;
+            gap: 70px;
+            margin-bottom: 80px;
         }
-
-        .staff-photo {
-            height: 220px;
+        .org-wakil::before { display: none; }
+        .org-wakil .org-person {
+            width: 200px;
+            margin: 0 auto;
         }
-
-        .org-person {
-            width: 230px;
+        .org-bottom {
+            grid-template-columns: 1fr;
+            gap: 70px;
         }
-
+        .org-bottom .org-person {
+            width: 200px;
+            margin: 0 auto;
+        }
+        .org-photo {
+            width: 110px;
+            height: 110px;
+        }
     }
-
 </style>
-
-
-<div class="profile-page">
-
-
-    {{-- =====================================================
-         HERO
-    ===================================================== --}}
-
-    <section class="profile-hero">
-
-        <div class="container-profile">
-
-            <h1>
-                Profil Sekolah
-            </h1>
-
-            <p>
-                Mengenal lebih dekat visi, misi, sejarah,
-                dan struktur organisasi SMP Negeri 2 Penawangan.
-            </p>
-
-        </div>
-
-    </section>
-
-
-    {{-- =====================================================
-         TENTANG SEKOLAH
-    ===================================================== --}}
-
-    <section class="profile-section">
-
-        <div class="container-profile">
-
-            <div class="row align-items-center g-5">
-
-
-                {{-- FOTO SEKOLAH --}}
-
-                <div class="col-lg-6">
-
-                    <div class="school-photo">
-
-                        {{--
-
-                        JIKA SUDAH ADA FOTO:
-
-                        <img src="{{ asset('images/sekolah.jpg') }}"
-                             alt="SMP Negeri 2 Penawangan">
-
-                        --}}
-
-                        <span>
-                            Foto Sekolah
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                {{-- DESKRIPSI --}}
-
-                <div class="col-lg-6">
-
-                    <div class="school-description">
-
-                        <div class="section-label">
-                            Tentang Kami
-                        </div>
-
-                        <h2 class="section-title">
-                            SMP Negeri 2 Penawangan
-                        </h2>
-
-                        <p>
-                            SMP Negeri 2 Penawangan merupakan salah satu
-                            satuan pendidikan yang berada di Kabupaten
-                            Grobogan. Sekolah berkomitmen memberikan
-                            pendidikan yang berkualitas serta menciptakan
-                            lingkungan belajar yang aman, nyaman, dan
-                            mendukung perkembangan peserta didik.
-                        </p>
-
-                        <p>
-                            Melalui proses pembelajaran yang aktif dan
-                            pembinaan karakter, sekolah terus mendorong
-                            peserta didik untuk mengembangkan potensi,
-                            prestasi, dan kepedulian terhadap lingkungan.
-                        </p>
-
-
-                        <div class="school-info">
-
-                            <div class="school-info-icon">
-                                📍
-                            </div>
-
-                            <div>
-
-                                <strong>
-                                    Lokasi Sekolah
-                                </strong>
-
-                                <span>
-                                    Kabupaten Grobogan, Jawa Tengah
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    {{-- =====================================================
-         VISI & MISI
-    ===================================================== --}}
-
-    <section class="vision-mission">
-
-        <div class="container-profile">
-
-            <div class="vision-mission-wrapper">
-
-
-                {{-- VISI --}}
-
-                <div class="vision-box">
-
-                    <h2>
-                        Visi Sekolah
-                    </h2>
-
-                    <p>
-                        "Mewujudkan insan sekolah yang berprestasi
-                        tinggi, berbudi pekerti luhur, berbudaya
-                        lingkungan berdasarkan iman dan takwa kepada
-                        Tuhan Yang Maha Esa."
-                    </p>
-
-                </div>
-
-
-                {{-- MISI --}}
-
-                <div class="mission-box">
-
-                    <h2>
-                        Misi Sekolah
-                    </h2>
-
-                    <ol class="mission-list">
-
-                        <li>
-
-                            <span class="mission-number">
-                                01.
-                            </span>
-
-                            <span>
-                                Melaksanakan pembelajaran aktif dan
-                                bimbingan secara efektif.
-                            </span>
-
-                        </li>
-
-                        <li>
-
-                            <span class="mission-number">
-                                02.
-                            </span>
-
-                            <span>
-                                Menumbuhkan penghayatan terhadap
-                                ajaran agama yang dianut.
-                            </span>
-
-                        </li>
-
-                        <li>
-
-                            <span class="mission-number">
-                                03.
-                            </span>
-
-                            <span>
-                                Menciptakan lingkungan sekolah yang
-                                bersih, sehat, dan rindang.
-                            </span>
-
-                        </li>
-
-                        <li>
-
-                            <span class="mission-number">
-                                04.
-                            </span>
-
-                            <span>
-                                Mengembangkan potensi peserta didik
-                                dalam bidang akademik maupun
-                                nonakademik.
-                            </span>
-
-                        </li>
-
-                    </ol>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    {{-- =====================================================
-         SEJARAH
-    ===================================================== --}}
-
-    <section class="history-section">
-
-        <div class="container-profile">
-
-            <div class="history-content">
-
-
-                <div class="history-header">
-
-                    <div class="section-label">
-                        Perjalanan Sekolah
-                    </div>
-
-                    <h2 class="section-title">
-                        Sejarah Singkat Sekolah
-                    </h2>
-
-                </div>
-
-
-                <p>
-                    SMP Negeri 2 Penawangan merupakan bagian dari
-                    lembaga pendidikan yang memiliki peran penting
-                    dalam mencerdaskan kehidupan masyarakat di
-                    Kabupaten Grobogan.
-                </p>
-
-                <p>
-                    Dalam perkembangannya, sekolah terus berupaya
-                    meningkatkan kualitas pembelajaran, sarana dan
-                    prasarana, serta kompetensi tenaga pendidik.
-                    Berbagai kegiatan akademik dan nonakademik
-                    dikembangkan untuk mendukung potensi peserta didik.
-                </p>
-
-                <p>
-                    Hingga saat ini, SMP Negeri 2 Penawangan terus
-                    berkomitmen menciptakan lingkungan pendidikan
-                    yang berkualitas, berkarakter, dan berwawasan
-                    lingkungan.
-                </p>
-
-
-                <div class="history-highlight">
-
-                    <strong>
-                        Catatan:
-                    </strong>
-
-                    Data sejarah ini masih berupa data sementara
-                    dan nantinya dapat diganti dengan sejarah resmi
-                    sekolah.
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    {{-- =====================================================
-         STRUKTUR ORGANISASI
-    ===================================================== --}}
-
-    <section class="organization-section">
-
-        <div class="container-profile">
-
-
-            <div class="organization-header">
-
-                <div class="section-label">
-                    Tenaga Pendidik
-                </div>
-
-                <h2>
-                    Struktur Organisasi & Staff
-                </h2>
-
-                <p>
-                    Struktur organisasi SMP Negeri 2 Penawangan
-                </p>
-
-            </div>
-
-
-            <div class="org-chart">
-
-
-                {{-- =================================================
-                     LEVEL 1
-                     KEPALA SEKOLAH
-                ================================================== --}}
-
-                <div class="org-level">
-
-                    <div class="org-person">
-
-                        <div class="org-photo">
-
-                            {{-- FOTO KEPALA SEKOLAH NANTI --}}
-
-                            KS
-
-                        </div>
-
-                        <h4>
-                            Nama Kepala Sekolah
-                        </h4>
-
-                        <span>
-                            Kepala Sekolah
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                {{-- GARIS --}}
-
-                <div class="org-connector"></div>
-
-
-                {{-- =================================================
-                     LEVEL 2
-                     WAKIL KEPALA SEKOLAH
-                ================================================== --}}
-
-                <div class="org-middle">
-
-                    <div class="org-person">
-
-                        <div class="org-photo">
-
-                            WK
-
-                        </div>
-
-                        <h4>
-                            Nama Wakil Kepala Sekolah
-                        </h4>
-
-                        <span>
-                            Wakil Kepala Sekolah
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                {{-- GARIS --}}
-
-                <div class="org-connector"></div>
-
-
-                {{-- =================================================
-                     LEVEL 3
-                     BAGIAN ORGANISASI
-                ================================================== --}}
-
-                <div class="org-bottom">
-
-
-                    {{-- KURIKULUM --}}
-
-                    <div class="org-person">
-
-                        <div class="org-photo">
-                            K
-                        </div>
-
-                        <h4>
-                            Nama Pengelola
-                        </h4>
-
-                        <span>
-                            Wakasek Kurikulum
-                        </span>
-
-                    </div>
-
-
-                    {{-- KESISWAAN --}}
-
-                    <div class="org-person">
-
-                        <div class="org-photo">
-                            S
-                        </div>
-
-                        <h4>
-                            Nama Pengelola
-                        </h4>
-
-                        <span>
-                            Wakasek Kesiswaan
-                        </span>
-
-                    </div>
-
-
-                    {{-- SARANA PRASARANA --}}
-
-                    <div class="org-person">
-
-                        <div class="org-photo">
-                            SP
-                        </div>
-
-                        <h4>
-                            Nama Pengelola
-                        </h4>
-
-                        <span>
-                            Sarana & Prasarana
-                        </span>
-
-                    </div>
-
-
-                    {{-- HUMAS --}}
-
-                    <div class="org-person">
-
-                        <div class="org-photo">
-                            H
-                        </div>
-
-                        <h4>
-                            Nama Pengelola
-                        </h4>
-
-                        <span>
-                            Hubungan Masyarakat
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    {{-- =====================================================
-         GURU & TENAGA KEPENDIDIKAN
-    ===================================================== --}}
-
-    <section class="staff-section">
-
-        <div class="staff-container">
-
-
-            {{-- HEADER --}}
-
-            <div class="staff-header">
-
-                <div class="section-label">
-                    Tenaga Pendidik
-                </div>
-
-                <h2>
-                    Guru & Tenaga Kependidikan
-                </h2>
-
-                <p>
-                    Tenaga pendidik dan tenaga kependidikan
-                    SMP Negeri 2 Penawangan.
-                </p>
-
-            </div>
-
-
-            {{-- GRID STAFF --}}
-
-            <div class="staff-grid">
-
-
-                {{-- =================================================
-                     STAFF 1
-                ================================================== --}}
-
-                <div class="staff-card">
-
-                    <div class="staff-photo">
-
-                        {{--
-
-                        FOTO GURU:
-
-                        <img src="{{ asset('images/guru/guru-1.jpg') }}"
-                             alt="Nama Guru">
-
-                        --}}
-
-                        Foto Guru
-
-                    </div>
-
-                    <div class="staff-info">
-
-                        <h4>
-                            Nama Kepala Sekolah
-                        </h4>
-
-                        <p>
-                            Nama Lengkap, Gelar
-                        </p>
-
-                        <span class="staff-position">
-                            Kepala Sekolah
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                {{-- =================================================
-                     STAFF 2
-                ================================================== --}}
-
-                <div class="staff-card">
-
-                    <div class="staff-photo">
-                        Foto Guru
-                    </div>
-
-                    <div class="staff-info">
-
-                        <h4>
-                            Nama Wakil Kepala Sekolah
-                        </h4>
-
-                        <p>
-                            Nama Lengkap, Gelar
-                        </p>
-
-                        <span class="staff-position">
-                            Wakil Kepala Sekolah
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                {{-- =================================================
-                     STAFF 3
-                ================================================== --}}
-
-                <div class="staff-card">
-
-                    <div class="staff-photo">
-                        Foto Guru
-                    </div>
-
-                    <div class="staff-info">
-
-                        <h4>
-                            Nama Guru
-                        </h4>
-
-                        <p>
-                            Nama Lengkap, Gelar
-                        </p>
-
-                        <span class="staff-position">
-                            Guru
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                {{-- =================================================
-                     STAFF 4
-                ================================================== --}}
-
-                <div class="staff-card">
-
-                    <div class="staff-photo">
-                        Foto Guru
-                    </div>
-
-                    <div class="staff-info">
-
-                        <h4>
-                            Nama Guru
-                        </h4>
-
-                        <p>
-                            Nama Lengkap, Gelar
-                        </p>
-
-                        <span class="staff-position">
-                            Guru
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                {{-- =================================================
-                     STAFF 5
-                ================================================== --}}
-
-                <div class="staff-card">
-
-                    <div class="staff-photo">
-                        Foto Guru
-                    </div>
-
-                    <div class="staff-info">
-
-                        <h4>
-                            Nama Guru
-                        </h4>
-
-                        <p>
-                            Nama Lengkap, Gelar
-                        </p>
-
-                        <span class="staff-position">
-                            Guru
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                {{-- =================================================
-                     STAFF 6
-                ================================================== --}}
-
-                <div class="staff-card">
-
-                    <div class="staff-photo">
-                        Foto Guru
-                    </div>
-
-                    <div class="staff-info">
-
-                        <h4>
-                            Nama Guru
-                        </h4>
-
-                        <p>
-                            Nama Lengkap, Gelar
-                        </p>
-
-                        <span class="staff-position">
-                            Guru
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-</div>
-
 @endsection

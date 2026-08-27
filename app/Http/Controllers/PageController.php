@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Galeri;
+use App\Models\Profil;
+use App\Models\Guru;
 use App\Models\Prestasi;
 
 class PageController extends Controller
@@ -15,7 +17,13 @@ class PageController extends Controller
     
     public function profil()
     {
-        return view('profil');
+
+        $profil = Profil::first();
+        $guruStaff = Guru::orderBy('kategori')
+            ->orderBy('nama')
+            ->get();
+
+        return view('profil', compact('profil','guruStaff'));
     }
 
     public function berita()
@@ -31,15 +39,16 @@ class PageController extends Controller
     ]);
     }
 
-    public function galeri()
+public function galeri()
     {
-    $galeris = Galeri::latest()->get();
+        $galeris = Galeri::latest()->get();
 
-    return view('galeri', compact('galeris'));
+        return view('galeri', compact('galeris'));
     }
 
     public function kontak()
     {
         return view('kontak');
     }
+    
 }
