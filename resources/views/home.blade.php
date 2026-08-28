@@ -2,6 +2,12 @@
 
 @section('title', 'Beranda - SMP Negeri 2 Penawangan')
 
+@php
+    use App\Models\Prestasi;
+
+    $prestasis = Prestasi::latest()->take(3)->get();
+@endphp
+
 @section('content')
 
 {{-- ================= HERO SLIDER ================= --}}
@@ -230,18 +236,26 @@
 
         <div class="achievement-grid">
 
-            @foreach($prestasis as $prestasi)
+            @forelse($prestasis as $prestasi)
 
                 <div class="achievement-card">
 
                     @if($prestasi->foto)
 
-                        <img
-                            src="{{ asset('storage/' . $prestasi->foto) }}"
-                            alt="{{ $prestasi->judul }}"
-                        >
+                        <div class="achievement-photo">
+                            <img
+                                src="{{ asset('storage/' . $prestasi->foto) }}"
+                                alt="{{ $prestasi->judul }}">
+                        </div>
+
+                    @else
+
+                        <div class="achievement-icon">
+                            ★
+                        </div>
 
                     @endif
+
 
                     <h3>
                         {{ $prestasi->judul }}
@@ -253,7 +267,13 @@
 
                 </div>
 
-            @endforeach
+            @empty
+
+                <p>
+                    Belum ada prestasi sekolah.
+                </p>
+
+            @endforelse
 
         </div>
 
@@ -268,7 +288,9 @@
     <div class="container principal">
 
         <div class="principal-photo">
-            FOTO
+            <img
+            src="{{ asset('images/tendik/Edy.jpeg') }}"
+            alt="Kepala Sekolah">
         </div>
 
 
@@ -297,7 +319,7 @@
             </p>
 
             <h3>
-                Drs. H. Mulyono, M.Pd.
+                Edy Susanto, S.Pd.
             </h3>
 
             <span>
@@ -655,6 +677,24 @@
         font-size: 14px;
     }
 
+    .achievement-photo {
+    width: 100%;
+    height: 220px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #F1F5F9;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.achievement-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
 
     /* ===============================
        PRINCIPAL
