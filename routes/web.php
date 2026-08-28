@@ -4,13 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GaleriController;
-<<<<<<< HEAD
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\Admin\GuruController;
 use App\Http\Controllers\PrestasiController;
-=======
 use App\Http\Controllers\BeritaController;
->>>>>>> 81cff75 (Fitur berita selesai dan perbaikan detail berita)
 
 
 /*
@@ -28,16 +25,8 @@ Route::get('/profil', [PageController::class, 'profil'])
 Route::get('/berita', [PageController::class, 'berita'])
     ->name('berita');
 
-
-/*
-|--------------------------------------------------------------------------
-| DETAIL BERITA
-|--------------------------------------------------------------------------
-*/
-
 Route::get('/berita/{id}', [PageController::class, 'detailBerita'])
     ->name('berita.detail');
-
 
 Route::get('/galeri', [PageController::class, 'galeri'])
     ->name('galeri');
@@ -67,6 +56,12 @@ Route::post('/admin/login', [AdminController::class, 'authenticate'])
 
 Route::middleware('auth')->group(function () {
 
+    /*
+    |--------------------------------------------------------------------------
+    | DASHBOARD
+    |--------------------------------------------------------------------------
+    */
+
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
         ->name('admin.dashboard');
 
@@ -74,9 +69,11 @@ Route::middleware('auth')->group(function () {
         ->name('admin.logout');
 
 
-    // =========================
-    // ADMIN BERITA
-    // =========================
+    /*
+    |--------------------------------------------------------------------------
+    | ADMIN BERITA
+    |--------------------------------------------------------------------------
+    */
 
     Route::get('/admin/berita', [BeritaController::class, 'index'])
         ->name('admin.berita');
@@ -97,38 +94,15 @@ Route::middleware('auth')->group(function () {
         ->name('admin.berita.destroy');
 
 
-    // =========================
-    // ADMIN GALERI
-    // =========================
+    /*
+    |--------------------------------------------------------------------------
+    | ADMIN GALERI
+    |--------------------------------------------------------------------------
+    */
 
     Route::get('/admin/galeri', [GaleriController::class, 'index'])
         ->name('admin.galeri');
 
-    Route::get('/admin/profil', [ProfilController::class, 'edit'])
-        ->name('admin.profil');
-    Route::put('/admin/profil/update', [ProfilController::class, 'update'])
-        ->name('admin.profil.update');
-
-    Route::get('/admin/guru', [AdminController::class, 'guru'])
-        ->name('admin.guru');
-
-    Route::get('/admin/prestasi', [PrestasiController::class, 'index'])
-        ->name('admin.prestasi.index');
-
-
-<<<<<<< HEAD
-    /*
-    |--------------------------------------------------------------------------
-    | ADMIN GALERI - CRUD
-    |--------------------------------------------------------------------------
-    */
-    
-=======
-    // =========================
-    // ADMIN GALERI - CRUD
-    // =========================
-
->>>>>>> 81cff75 (Fitur berita selesai dan perbaikan detail berita)
     Route::get('/admin/galeri/tambah', [GaleriController::class, 'create'])
         ->name('admin.galeri.create');
 
@@ -144,18 +118,45 @@ Route::middleware('auth')->group(function () {
     Route::delete('/admin/galeri/{id}', [GaleriController::class, 'destroy'])
         ->name('admin.galeri.destroy');
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | ADMIN PROFIL
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/admin/profil', [ProfilController::class, 'edit'])
+        ->name('admin.profil');
+
+    Route::put('/admin/profil/update', [ProfilController::class, 'update'])
+        ->name('admin.profil.update');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ADMIN GURU
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/admin/guru', [AdminController::class, 'guru'])
+        ->name('admin.guru');
+
     Route::prefix('admin')->name('admin.')->group(function () {
 
-    Route::resource('guru', GuruController::class)
-        ->except(['show']);
+        Route::resource('guru', GuruController::class)
+            ->except(['show']);
+
     });
 
-});
 
+    /*
+    |--------------------------------------------------------------------------
+    | ADMIN PRESTASI
+    |--------------------------------------------------------------------------
+    */
 
-// =========================
-// ADMIN PRESTASI - CRUD
-// =========================
+    Route::get('/admin/prestasi', [PrestasiController::class, 'index'])
+        ->name('admin.prestasi.index');
 
     Route::get('/admin/prestasi/tambah', [PrestasiController::class, 'create'])
         ->name('admin.prestasi.create');
@@ -171,3 +172,5 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/admin/prestasi/{id}', [PrestasiController::class, 'destroy'])
         ->name('admin.prestasi.destroy');
+
+});

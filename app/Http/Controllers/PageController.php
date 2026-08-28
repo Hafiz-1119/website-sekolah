@@ -1,15 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-<<<<<<< HEAD
+
 use App\Models\Galeri;
 use App\Models\Profil;
 use App\Models\Guru;
 use App\Models\Prestasi;
-=======
-
 use App\Models\Berita;
->>>>>>> 81cff75 (Fitur berita selesai dan perbaikan detail berita)
 
 class PageController extends Controller
 {
@@ -19,16 +16,16 @@ class PageController extends Controller
 
         return view('home', compact('prestasis'));
     }
-    
+
     public function profil()
     {
-
         $profil = Profil::first();
+
         $guruStaff = Guru::orderBy('kategori')
             ->orderBy('nama')
             ->get();
 
-        return view('profil', compact('profil','guruStaff'));
+        return view('profil', compact('profil', 'guruStaff'));
     }
 
     // =========================
@@ -53,20 +50,23 @@ class PageController extends Controller
         return view('detail-berita', compact('berita'));
     }
 
-public function galeri()
+    // =========================
+    // HALAMAN GALERI
+    // =========================
+
+    public function galeri()
     {
-<<<<<<< HEAD
         $galeris = Galeri::latest()->get();
 
         return view('galeri', compact('galeris'));
-=======
-        return view('galeri');
->>>>>>> 81cff75 (Fitur berita selesai dan perbaikan detail berita)
     }
+
+    // =========================
+    // HALAMAN KONTAK
+    // =========================
 
     public function kontak()
     {
         return view('kontak');
     }
-    
 }
