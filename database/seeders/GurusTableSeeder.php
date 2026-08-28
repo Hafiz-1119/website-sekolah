@@ -6,14 +6,13 @@ use Illuminate\Database\Seeder;
 
 class GurusTableSeeder extends Seeder
 {
-
-    
-     @return void
-
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
     public function run()
     {
-        
-
         \DB::table('gurus')->delete();
         
         \DB::table('gurus')->insert(array (
@@ -425,7 +424,5 @@ class GurusTableSeeder extends Seeder
                 'updated_at' => '2026-08-24 16:54:09',
             ),
         ));
-        
-        
     }
 }
