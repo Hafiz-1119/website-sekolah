@@ -243,9 +243,8 @@
                     @if($prestasi->foto)
 
                         <div class="achievement-photo">
-                            <img
-                                src="{{ asset('storage/' . $prestasi->foto) }}"
-                                alt="{{ $prestasi->judul }}">
+                            <img src="{{ asset('storage/' . $prestasi->foto) }}"
+                            alt="{{ $prestasi->judul }}">
                         </div>
 
                     @else
