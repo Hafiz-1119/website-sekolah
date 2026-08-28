@@ -6,10 +6,9 @@ use Illuminate\Database\Seeder;
 
 class ProfilsTableSeeder extends Seeder
 {
-
-
-      @return void
-     
+    /**
+    * @return void
+    */
     public function run()
     {
         
