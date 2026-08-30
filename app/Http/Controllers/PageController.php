@@ -13,8 +13,11 @@ class PageController extends Controller
     public function home()
     {
         $prestasis = Prestasi::latest()->get();
+        
+        // Mengambil 3 berita terbaru dari database MySQL
+        $beritas = Berita::latest('tanggal')->take(3)->get();
 
-        return view('home', compact('prestasis'));
+        return view('home', compact('prestasis', 'beritas'));
     }
 
     public function profil()

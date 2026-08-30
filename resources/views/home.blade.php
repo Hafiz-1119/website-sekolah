@@ -5,7 +5,8 @@
 @php
     use App\Models\Prestasi;
 
-    $prestasis = Prestasi::latest()->take(3)->get();
+    // Memastikan jika $prestasis tidak terkirim dari controller, akan diambil otomatis
+    $prestasis = $prestasis ?? Prestasi::latest()->take(3)->get();
 @endphp
 
 @section('content')
@@ -99,113 +100,54 @@
 
         <div class="news-grid">
 
-            {{-- BERITA 1 --}}
-            <article class="news-card">
+            @forelse($beritas as $berita)
+                <article class="news-card">
 
-                <div class="news-image">
-
-                    <div class="image-placeholder">
-                        FOTO BERITA
+                    <div class="news-image">
+                        @if($berita->foto)
+                            <img src="{{ asset('storage/' . $berita->foto) }}" 
+                                 alt="{{ $berita->judul }}" 
+                                 style="width: 100%; height: 100%; object-fit: cover;">
+                        @else
+                            <div class="image-placeholder">
+                                FOTO BERITA
+                            </div>
+                        @endif
                     </div>
 
-                </div>
+                    <div class="news-content">
 
-                <div class="news-content">
+                        <span class="news-date">
+                            {{ \Carbon\Carbon::parse($berita->tanggal ?? $berita->created_at)->translatedFormat('d F Y') }}
+                        </span>
 
-                    <span class="news-date">
-                        25 November 2024
-                    </span>
+                        <h3>
+                            {{ $berita->judul }}
+                        </h3>
 
-                    <h3>
-                        Upacara Hari Guru Nasional
-                    </h3>
+                        <p>
+                            {{ Str::limit(strip_tags($berita->isi ?? $berita->ringkasan ?? $berita->deskripsi), 90) }}
+                        </p>
 
-                    <p>
-                        Kegiatan upacara dalam rangka memperingati Hari Guru Nasional.
-                    </p>
+                        <a href="{{ route('berita.detail', $berita->id) }}">
+                            Baca Selengkapnya →
+                        </a>
 
-                    <a href="/berita">
-                        Baca Selengkapnya →
-                    </a>
-
-                </div>
-
-            </article>
-
-
-            {{-- BERITA 2 --}}
-            <article class="news-card">
-
-                <div class="news-image">
-
-                    <div class="image-placeholder">
-                        FOTO BERITA
                     </div>
 
+                </article>
+            @empty
+                <div style="grid-column: 1 / -1; text-align: center; padding: 40px 0;">
+                    <p style="color: #6b7280;">Belum ada berita atau kegiatan terbaru.</p>
                 </div>
-
-                <div class="news-content">
-
-                    <span class="news-date">
-                        12 November 2024
-                    </span>
-
-                    <h3>
-                        Siswa SMPN 2 Juara Pencak Silat
-                    </h3>
-
-                    <p>
-                        Prestasi siswa dalam kompetisi pencak silat tingkat Kabupaten.
-                    </p>
-
-                    <a href="/berita">
-                        Baca Selengkapnya →
-                    </a>
-
-                </div>
-
-            </article>
-
-
-            {{-- BERITA 3 --}}
-            <article class="news-card">
-
-                <div class="news-image">
-
-                    <div class="image-placeholder">
-                        FOTO BERITA
-                    </div>
-
-                </div>
-
-                <div class="news-content">
-
-                    <span class="news-date">
-                        05 November 2024
-                    </span>
-
-                    <h3>
-                        Kegiatan Pramuka & Kemah Bakti
-                    </h3>
-
-                    <p>
-                        Dokumentasi kegiatan Pramuka dan Kemah Bakti sekolah.
-                    </p>
-
-                    <a href="/berita">
-                        Baca Selengkapnya →
-                    </a>
-
-                </div>
-
-            </article>
+            @endforelse
 
         </div>
 
 
         <div class="center-button">
 
-            <a href="/berita" class="btn btn-primary">
+            <a href="{{ route('berita') }}" class="btn btn-primary">
                 Lihat Semua Berita →
             </a>
 
@@ -268,7 +210,7 @@
 
             @empty
 
-                <p>
+                <p style="grid-column: 1 / -1; text-align: center;">
                     Belum ada prestasi sekolah.
                 </p>
 
@@ -572,6 +514,7 @@
 
     .news-image {
         height: 190px;
+        overflow: hidden;
     }
 
     .image-placeholder {
@@ -677,23 +620,23 @@
     }
 
     .achievement-photo {
-    width: 100%;
-    height: 220px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    overflow: hidden;
-    background: #F1F5F9;
+        width: 100%;
+        height: 220px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #F1F5F9;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-.achievement-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
+    .achievement-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
 
     /* ===============================
        PRINCIPAL
@@ -721,6 +664,13 @@
 
         color: #64748b;
         font-weight: bold;
+        overflow: hidden;
+    }
+
+    .principal-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
     .principal-content h2 {
