@@ -16,332 +16,171 @@
     <aside class="admin-sidebar">
 
         <div class="sidebar-brand">
-
             <div class="sidebar-logo">
-                <img
-                    src="{{ asset('images/Logo Smp 2 Penawangan.png') }}"
-                    alt="Logo SMP Negeri 2 Penawangan"
-                >
+                <img src="{{ asset('images/Logo Smp 2 Penawangan.png') }}" alt="Logo SMP Negeri 2 Penawangan">
             </div>
-
             <div>
                 <h2>Admin Panel</h2>
                 <p>SMP Negeri 2 Penawangan</p>
             </div>
-
         </div>
 
-
-        {{-- ================= MENU ================= --}}
+        {{-- ================= MENU SIDEBAR ================= --}}
         <nav class="sidebar-menu">
-
             <a href="{{ route('admin.dashboard') }}" class="active">
                 <span class="menu-icon">▦</span>
                 Dashboard
             </a>
-
-            <a href="{{ route('admin.berita') }}">
-                <span class="menu-icon">▤</span>
-                Kelola Berita
-            </a>
-
-            <a href="{{ route('admin.galeri') }}">
-                <span class="menu-icon">▧</span>
-                Kelola Galeri
-            </a>
-
-            <a href="{{ route('admin.profil') }}">
-                <span class="menu-icon">▣</span>
-                Kelola Profil
-            </a>
-
-            <a href="{{ route('admin.guru.index') }}">
-                <span class="menu-icon">♙</span>
-                Kelola Guru
-            </a>
-
-            <a href="{{ route('admin.prestasi.index') }}">
-                <span class="menu-icon">★</span>
-                Kelola Prestasi
-            </a>
-
         </nav>
+
+        {{-- ================= LOG AKTIVITAS ================= --}}
+        <div class="sidebar-activity">
+            <div class="sidebar-activity-header">
+                <span>Aktivitas Terbaru</span>
+                <span class="activity-badge">Log</span>
+            </div>
+
+            <ul class="sidebar-activity-list">
+                <li class="sidebar-activity-item">
+                    <div class="activity-dot primary"></div>
+                    <div class="sidebar-activity-content">
+                        <p><strong>Berita Baru</strong> "Pendaftaran Siswa Baru TA 2026/2027" diterbitkan.</p>
+                        <span class="activity-time">Hari ini, 09:30</span>
+                    </div>
+                </li>
+
+                <li class="sidebar-activity-item">
+                    <div class="activity-dot success"></div>
+                    <div class="sidebar-activity-content">
+                        <p><strong>Galeri</strong> Album "Senam Pagi" diperbarui.</p>
+                        <span class="activity-time">Kemarin, 14:15</span>
+                    </div>
+                </li>
+
+                <li class="sidebar-activity-item">
+                    <div class="activity-dot warning"></div>
+                    <div class="sidebar-activity-content">
+                        <p><strong>Data Guru</strong> Kontak staf diperbarui.</p>
+                        <span class="activity-time">26 Ags, 11:00</span>
+                    </div>
+                </li>
+
+                <li class="sidebar-activity-item">
+                    <div class="activity-dot info"></div>
+                    <div class="sidebar-activity-content">
+                        <p><strong>Prestasi</strong> "Juara 1 Pencak Silat" ditambahkan.</p>
+                        <span class="activity-time">24 Ags, 16:45</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
         {{-- ================= LOGOUT ================= --}}
         <div class="sidebar-bottom">
-
             <form action="{{ route('admin.logout') }}" method="POST">
                 @csrf
-
                 <button type="submit">
                     <span>↪</span>
                     Logout
                 </button>
-
             </form>
-
         </div>
 
     </aside>
 
 
-
     {{-- ================= MAIN CONTENT ================= --}}
     <main class="admin-main">
 
-
         {{-- ================= HEADER ================= --}}
         <header class="admin-header">
-
             <div>
-
-                <h1>Selamat Datang, Admin</h1>
-
-                <p>
-                    SMP Negeri 2 Penawangan · Administrator Dashboard
-                </p>
-
+                <h1>Dashboard Administrator</h1>
+                <p>SMP Negeri 2 Penawangan · Panel Kontrol Sistem</p>
             </div>
-
 
             <div class="admin-profile">
-
-                <div class="admin-avatar">
-                    AD
-                </div>
-
+                <div class="admin-avatar">AD</div>
                 <div>
-
                     <strong>Administrator</strong>
-
                     <span>System Active</span>
-
                 </div>
-
             </div>
-
         </header>
 
 
-
-        {{-- ================= CONTENT ================= --}}
+        {{-- ================= CONTENT AREA ================= --}}
         <div class="admin-content">
 
-
-            {{-- ================= STATISTIK ================= --}}
-            <div class="stats-grid">
-
-
-                <div class="stat-card">
-
-                    <div class="stat-top">
-
-                        <span>Total Berita</span>
-
-                        <div class="stat-icon">
-                            ▤
-                        </div>
-
-                    </div>
-
-                    <h2>48</h2>
-
-                    <p class="stat-up">
-                        ↑ 4 vs last month
-                    </p>
-
+            {{-- 1. BANNER WELCOME --}}
+            <div class="welcome-banner">
+                <div class="welcome-text">
+                    <h2>Selamat Datang Kembali, Admin!</h2>
+                    <p>Kelola informasi sekolah, berita, dokumentasi galeri, hingga data staf & prestasi sekolah dari satu tempat.</p>
                 </div>
-
-
-
-                <div class="stat-card">
-
-                    <div class="stat-top">
-
-                        <span>Total Guru</span>
-
-                        <div class="stat-icon">
-                            ♙
-                        </div>
-
-                    </div>
-
-                    <h2>32</h2>
-
-                    <p class="stat-up">
-                        ↑ 0 vs last month
-                    </p>
-
+                <div class="welcome-action">
+                    <a href="{{ url('/') }}" target="_blank" class="btn-preview">
+                        <span>🌐</span> Lihat Website
+                    </a>
                 </div>
-
-
-
-                <div class="stat-card">
-
-                    <div class="stat-top">
-
-                        <span>Total Album Galeri</span>
-
-                        <div class="stat-icon">
-                            ▧
-                        </div>
-
-                    </div>
-
-                    <h2>18</h2>
-
-                    <p class="stat-up">
-                        ↑ 2 vs last month
-                    </p>
-
-                </div>
-
-
-
-                <div class="stat-card">
-
-                    <div class="stat-top">
-
-                        <span>Total Prestasi</span>
-
-                        <div class="stat-icon">
-                            ★
-                        </div>
-
-                    </div>
-
-                    <h2>12</h2>
-
-                    <p class="stat-up">
-                        ↑ 3 vs last month
-                    </p>
-
-                </div>
-
-
             </div>
 
-
-
-            {{-- ================= AKSI CEPAT ================= --}}
-            <section class="quick-action">
-
-                <h3>Aksi Cepat</h3>
-
-                <div class="quick-buttons">
-
-                    <a href="#" class="quick-primary">
-                        ✚ Tambah Berita
-                    </a>
-
-                    <a href="#" class="quick-secondary">
-                        ▧ Upload Foto
-                    </a>
-
+            {{-- 2. MENU PENGELOLAAN --}}
+            <div class="menu-section">
+                <div class="section-title">
+                    <h2>Menu Pengelolaan</h2>
+                    <p>Pilih menu di bawah ini untuk mengedit data sekolah.</p>
                 </div>
 
-            </section>
-
-
-
-            {{-- ================= BERITA TERBARU ================= --}}
-            <section class="recent-news">
-
-                <div class="section-header">
-
-                    <h3>Berita Terbaru</h3>
-
-                    <a href="#">
-                        Lihat Semua Berita →
+                <div class="menu-grid">
+                    <a href="{{ route('admin.berita') }}" class="menu-item base-card">
+                        <div class="menu-item-icon">▤</div>
+                        <div class="menu-item-text">
+                            <h3>Kelola Berita</h3>
+                            <p>Artikel & pengumuman sekolah</p>
+                        </div>
                     </a>
 
+                    <a href="{{ route('admin.galeri') }}" class="menu-item base-card">
+                        <div class="menu-item-icon">▧</div>
+                        <div class="menu-item-text">
+                            <h3>Kelola Galeri</h3>
+                            <p>Dokumentasi foto kegiatan</p>
+                        </div>
+                    </a>
+
+                    <a href="{{ route('admin.profil') }}" class="menu-item base-card">
+                        <div class="menu-item-icon">▣</div>
+                        <div class="menu-item-text">
+                            <h3>Kelola Profil</h3>
+                            <p>Informasi visi, misi & sejarah</p>
+                        </div>
+                    </a>
+
+                    <a href="{{ route('admin.guru.index') }}" class="menu-item base-card">
+                        <div class="menu-item-icon">♙</div>
+                        <div class="menu-item-text">
+                            <h3>Kelola Guru</h3>
+                            <p>Data tenaga pendidik & staf</p>
+                        </div>
+                    </a>
+
+                    <a href="{{ route('admin.prestasi.index') }}" class="menu-item base-card">
+                        <div class="menu-item-icon">★</div>
+                        <div class="menu-item-text">
+                            <h3>Kelola Prestasi</h3>
+                            <p>Pencapaian siswa & sekolah</p>
+                        </div>
+                    </a>
                 </div>
-
-
-                <div class="table-wrapper">
-
-                    <table>
-
-                        <thead>
-
-                            <tr>
-                                <th>Judul</th>
-                                <th>Kategori</th>
-                                <th>Status</th>
-                                <th>Tanggal</th>
-                            </tr>
-
-                        </thead>
-
-
-                        <tbody>
-
-                            <tr>
-
-                                <td>
-                                    Pendaftaran Siswa Baru Tahun Ajaran 2026
-                                </td>
-
-                                <td>Akademik</td>
-
-                                <td>
-                                    <span class="status published">
-                                        Publish
-                                    </span>
-                                </td>
-
-                                <td>12 May 2026</td>
-
-                            </tr>
-
-
-                            <tr>
-
-                                <td>
-                                    Siswa SMPN 2 Penawangan Juara Pencak Silat
-                                </td>
-
-                                <td>Prestasi</td>
-
-                                <td>
-                                    <span class="status published">
-                                        Publish
-                                    </span>
-                                </td>
-
-                                <td>08 May 2026</td>
-
-                            </tr>
-
-
-                            <tr>
-
-                                <td>
-                                    Rencana Pelaksanaan Ujian Akhir Semester
-                                </td>
-
-                                <td>Pengumuman</td>
-
-                                <td>
-                                    <span class="status draft">
-                                        Draft
-                                    </span>
-                                </td>
-
-                                <td>02 May 2026</td>
-
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            </section>
-
+            </div>
 
         </div>
+
+        {{-- 3. FOOTER SIMPEL --}}
+        <footer class="admin-footer">
+            <p>&copy; {{ date('Y') }} SMP Negeri 2 Penawangan. All rights reserved.</p>
+        </footer>
 
     </main>
 
@@ -350,182 +189,225 @@
 @endsection
 
 
-
 @section('styles')
-
 <style>
-
-    /* ================= GLOBAL ADMIN ================= */
-
+    /* ================= GLOBAL LAYOUT ================= */
     .admin-layout {
         min-height: 100vh;
         display: flex;
-        background: #CAF0F8;
+        background: var(--bg-2, #eef4f9);
     }
 
+    .base-card {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--input, #e5edf7);
+    }
 
     /* ================= SIDEBAR ================= */
-
     .admin-sidebar {
-        width: 250px;
+        width: 260px;
         min-height: 100vh;
         background: #ffffff;
-        border-right: 1px solid #90E0EF;
+        border-right: 1px solid var(--input, #e5edf7);
         display: flex;
         flex-direction: column;
         flex-shrink: 0;
-        box-shadow: 2px 0 15px rgba(3, 4, 94, 0.06);
+        box-shadow: 2px 0 15px rgba(10, 43, 75, 0.05);
     }
-
 
     .sidebar-brand {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
         padding: 20px 18px;
-        border-bottom: 1px solid #ADE8F4;
+        border-bottom: 1px solid var(--input, #e5edf7);
     }
-
-
-    .sidebar-logo {
-        width: 42px;
-        height: 42px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
 
     .sidebar-logo img {
-        width: 42px;
-        height: 42px;
+        width: 40px;
+        height: 40px;
         object-fit: contain;
     }
 
-
     .sidebar-brand h2 {
-        font-size: 16px;
-        color: #023E8A;
+        font-size: 15px;
+        color: var(--overlay-1, #0a2b4b);
         margin: 0;
+        font-weight: bold;
     }
-
 
     .sidebar-brand p {
         font-size: 10px;
-        color: #0077B6;
+        color: var(--primary, #2f80ed);
         margin: 2px 0 0;
     }
 
-
-    /* ================= MENU ================= */
-
     .sidebar-menu {
-        padding: 16px 12px;
+        padding: 16px 14px 8px;
     }
-
 
     .sidebar-menu a {
         display: flex;
         align-items: center;
         gap: 12px;
-        padding: 11px 12px;
-        margin-bottom: 4px;
-        border-radius: 7px;
-        color: #023E8A;
+        padding: 11px 14px;
+        border-radius: 8px;
+        color: var(--heading, #123c69);
         font-size: 13px;
-        transition: 0.3s;
+        text-decoration: none;
+        transition: all 0.2s ease;
     }
-
 
     .sidebar-menu a:hover {
-        background: #ADE8F4;
-        color: #03045E;
+        background: var(--bg-1, #dbe4ee);
+        color: var(--overlay-1, #0a2b4b);
     }
 
-
     .sidebar-menu a.active {
-        background: #90E0EF;
-        color: #03045E;
+        background: var(--primary,  #0a2b4b);
+        color: #ffffff;
         font-weight: bold;
     }
 
-
     .menu-icon {
-        width: 16px;
+        width: 18px;
         text-align: center;
-        font-size: 15px;
-        color: #0077B6;
+        font-size: 14px;
     }
 
-
-    .sidebar-menu a.active .menu-icon {
-        color: #03045E;
+    /* ================= SIDEBAR ACTIVITY LOG ================= */
+    .sidebar-activity {
+        padding: 16px 14px;
+        margin: 10px 14px;
+        background: var(--bg-2, #eef4f9);
+        border-radius: 10px;
+        border: 1px solid var(--input, #e5edf7);
     }
 
+    .sidebar-activity-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .sidebar-activity-header span {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--overlay-1, #0a2b4b);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .activity-badge {
+        font-size: 9px !important;
+        background: var(--primary, #dbeafe);
+        color: #ffffff;
+        padding: 2px 6px;
+        border-radius: 8px;
+    }
+
+    .sidebar-activity-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .sidebar-activity-item {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 12px;
+        position: relative;
+    }
+
+    .sidebar-activity-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .activity-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-top: 4px;
+        flex-shrink: 0;
+    }
+
+    .activity-dot.primary { background: var(--primary, #2f80ed); }
+    .activity-dot.success { background: #10b981; }
+    .activity-dot.warning { background: #f59e0b; }
+    .activity-dot.info { background: #6366f1; }
+
+    .sidebar-activity-content p {
+        margin: 0 0 2px 0;
+        font-size: 11px;
+        color: var(--heading, #123c69);
+        line-height: 1.35;
+    }
+
+    .activity-time {
+        font-size: 9px;
+        color: var(--meta, #64748b);
+        display: block;
+    }
 
     /* ================= LOGOUT ================= */
-
     .sidebar-bottom {
         margin-top: auto;
         padding: 15px;
-        border-top: 1px solid #ADE8F4;
+        border-top: 1px solid var(--input, #e5edf7);
     }
-
 
     .sidebar-bottom button {
         width: 100%;
         border: none;
         background: transparent;
         text-align: left;
-        color: #023E8A;
+        color: #ef4444;
         cursor: pointer;
-        padding: 10px;
+        padding: 10px 14px;
         font-size: 13px;
-        border-radius: 7px;
-        transition: 0.3s;
+        font-weight: 600;
+        border-radius: 8px;
+        transition: 0.2s;
     }
-
 
     .sidebar-bottom button:hover {
-        background: #CAF0F8;
-        color: #03045E;
+        background: #fee2e2;
     }
 
-
-    /* ================= MAIN ================= */
-
+    /* ================= MAIN CONTAINER ================= */
     .admin-main {
         flex: 1;
         min-width: 0;
+        display: flex;
+        flex-direction: column;
     }
 
-
-    /* ================= HEADER ================= */
-
     .admin-header {
-        min-height: 76px;
+        min-height: 70px;
         background: #ffffff;
-        border-bottom: 1px solid #90E0EF;
+        border-bottom: 1px solid var(--input, #e5edf7);
         padding: 15px 30px;
-
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
 
-
     .admin-header h1 {
         font-size: 18px;
-        color: #03045E;
-        margin-bottom: 3px;
+        color: var(--overlay-1, #0a2b4b);
+        margin: 0 0 3px 0;
     }
-
 
     .admin-header p {
         font-size: 11px;
-        color: #0077B6;
+        color: var(--meta, #64748b);
+        margin: 0;
     }
-
 
     .admin-profile {
         display: flex;
@@ -533,282 +415,165 @@
         gap: 10px;
     }
 
-
     .admin-avatar {
-        width: 38px;
-        height: 38px;
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
-
-        background: #ADE8F4;
-        color: #023E8A;
-
+        background: var(--card, #dbeafe);
+        color: var(--heading, #123c69);
         display: flex;
         align-items: center;
         justify-content: center;
-
         font-size: 12px;
         font-weight: bold;
     }
 
-
     .admin-profile strong {
         display: block;
-        font-size: 11px;
-        color: #03045E;
+        font-size: 12px;
+        color: var(--overlay-1, #0a2b4b);
     }
-
 
     .admin-profile span {
         display: block;
-        font-size: 9px;
-        color: #0077B6;
-        margin-top: 2px;
+        font-size: 10px;
+        color: #10b981;
+        margin-top: 1px;
     }
 
-
-    /* ================= CONTENT ================= */
-
+    /* ================= CONTENT BODY ================= */
     .admin-content {
-        padding: 25px;
-        max-width: 1250px;
+        padding: 25px 30px;
+        flex: 1;
     }
 
-
-    /* ================= STATISTICS ================= */
-
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 14px;
-    }
-
-
-    .stat-card {
-        background: #ffffff;
-        border: 1px solid #90E0EF;
-        border-radius: 12px;
-        padding: 18px;
-        box-shadow: 0 4px 15px rgba(3, 4, 94, 0.05);
-    }
-
-
-    .stat-top {
+    /* 1. Welcome Banner */
+    .welcome-banner {
+        background: linear-gradient(135deg, var(--overlay-1, #0a2b4b) 0%, var(--overlay-2, #123c69) 100%);
+        border-radius: 14px;
+        padding: 24px 28px;
+        color: #ffffff;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 25px rgba(10, 43, 75, 0.15);
     }
 
-
-    .stat-top span {
-        color: #0077B6;
-        font-size: 11px;
+    .welcome-text h2 {
+        font-size: 20px;
+        margin: 0 0 6px 0;
+        font-weight: 700;
     }
 
+    .welcome-text p {
+        font-size: 13px;
+        margin: 0;
+        opacity: 0.85;
+        max-width: 650px;
+        line-height: 1.5;
+    }
 
-    .stat-icon {
-        width: 32px;
-        height: 32px;
+    .btn-preview {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+        padding: 10px 18px;
         border-radius: 8px;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 600;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        white-space: nowrap;
+        transition: 0.3s ease;
+    }
 
-        background: #ADE8F4;
-        color: #0077B6;
+    .btn-preview:hover {
+        background: #ffffff;
+        color: var(--overlay-1, #0a2b4b);
+    }
 
+    /* 2. Menu Pengelolaan */
+    .section-title h2 {
+        font-size: 17px;
+        color: var(--overlay-1, #0a2b4b);
+        margin: 0 0 4px 0;
+        font-weight: 700;
+    }
+
+    .section-title p {
+        font-size: 12px;
+        color: var(--text, #6b7280);
+        margin: 0 0 20px 0;
+    }
+
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 22px;
+        text-decoration: none;
+        transition: all 0.25s ease;
+    }
+
+    .menu-item:hover {
+        transform: translateY(-3px);
+        border-color: var(--primary, #2f80ed);
+        box-shadow: 0 8px 20px rgba(47, 128, 237, 0.12);
+    }
+
+    .menu-item-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        background: var(--bg-2, #eef4f9);
+        color: var(--primary, #2f80ed);
         display: flex;
         align-items: center;
         justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
     }
 
-
-    .stat-card h2 {
-        font-size: 24px;
-        color: #03045E;
-        margin: 10px 0 4px;
+    .menu-item-text h3 {
+        margin: 0 0 4px 0;
+        color: var(--overlay-1, #0a2b4b);
+        font-size: 15px;
+        font-weight: 700;
     }
 
-
-    .stat-card p {
-        font-size: 9px;
+    .menu-item-text p {
+        margin: 0;
+        color: var(--text, #6b7280);
+        font-size: 12px;
     }
 
-
-    .stat-up {
-        color: #0096C7;
-    }
-
-
-    /* ================= QUICK ACTION ================= */
-
-    .quick-action {
-        display: inline-block;
-        margin-top: 15px;
+    /* 3. Footer */
+    .admin-footer {
+        padding: 15px 30px;
         background: #ffffff;
-        border: 1px solid #90E0EF;
-        border-radius: 12px;
-        padding: 15px;
-        box-shadow: 0 4px 15px rgba(3, 4, 94, 0.04);
+        border-top: 1px solid var(--input, #e5edf7);
+        text-align: center;
     }
 
-
-    .quick-action h3 {
-        font-size: 13px;
-        color: #03045E;
-        margin-bottom: 12px;
-    }
-
-
-    .quick-buttons {
-        display: flex;
-        gap: 10px;
-    }
-
-
-    .quick-buttons a {
-        padding: 9px 14px;
-        border-radius: 6px;
+    .admin-footer p {
+        margin: 0;
         font-size: 11px;
-        font-weight: bold;
-        transition: 0.3s;
+        color: var(--meta, #64748b);
     }
-
-
-    .quick-primary {
-        background: #023E8A;
-        color: white;
-    }
-
-
-    .quick-primary:hover {
-        background: #03045E;
-    }
-
-
-    .quick-secondary {
-        background: #ffffff;
-        border: 1px solid #90E0EF;
-        color: #023E8A;
-    }
-
-
-    .quick-secondary:hover {
-        background: #CAF0F8;
-        color: #03045E;
-    }
-
-
-    /* ================= BERITA TERBARU ================= */
-
-    .recent-news {
-        margin-top: 18px;
-        max-width: 760px;
-
-        background: #ffffff;
-        border: 1px solid #90E0EF;
-        border-radius: 12px;
-        padding: 18px;
-        box-shadow: 0 4px 15px rgba(3, 4, 94, 0.04);
-    }
-
-
-    .section-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 14px;
-    }
-
-
-    .section-header h3 {
-        font-size: 14px;
-        color: #03045E;
-    }
-
-
-    .section-header a {
-        font-size: 10px;
-        color: #0077B6;
-        font-weight: bold;
-    }
-
-
-    .section-header a:hover {
-        color: #03045E;
-    }
-
-
-    .table-wrapper {
-        overflow-x: auto;
-    }
-
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 10px;
-    }
-
-
-    th {
-        background: #ADE8F4;
-        color: #023E8A;
-        text-align: left;
-        padding: 10px;
-        font-weight: bold;
-    }
-
-
-    td {
-        padding: 10px;
-        border-bottom: 1px solid #CAF0F8;
-        color: #023E8A;
-    }
-
-
-    tbody tr:hover {
-        background: #CAF0F8;
-    }
-
-
-    tbody tr:last-child td {
-        border-bottom: none;
-    }
-
-
-    /* ================= STATUS ================= */
-
-    .status {
-        display: inline-block;
-        padding: 3px 9px;
-        border-radius: 10px;
-        font-size: 9px;
-        font-weight: bold;
-    }
-
-
-    .published {
-        background: #ADE8F4;
-        color: #0077B6;
-    }
-
-
-    .draft {
-        background: #CAF0F8;
-        color: #023E8A;
-    }
-
 
     /* ================= RESPONSIVE ================= */
-
-    @media (max-width: 1000px) {
-
-        .stats-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-    }
-
-
     @media (max-width: 768px) {
-
         .admin-layout {
             flex-direction: column;
         }
@@ -818,48 +583,10 @@
             min-height: auto;
         }
 
-        .sidebar-menu {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .sidebar-bottom {
-            margin-top: 0;
-        }
-
-        .admin-header {
-            padding: 15px 20px;
-        }
-
-        .admin-content {
-            padding: 20px;
-        }
-
-        .recent-news {
-            max-width: 100%;
-        }
-
-    }
-
-
-    @media (max-width: 500px) {
-
-        .stats-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .admin-header {
+        .welcome-banner {
             flex-direction: column;
             align-items: flex-start;
-            gap: 15px;
         }
-
-        .quick-buttons {
-            flex-direction: column;
-        }
-
     }
-
 </style>
-
 @endsection
